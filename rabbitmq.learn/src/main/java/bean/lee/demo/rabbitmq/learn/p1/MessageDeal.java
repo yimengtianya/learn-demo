@@ -19,6 +19,6 @@ public class MessageDeal extends DefaultConsumer {
 	public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties, byte[] body)
 			throws IOException {
 		String message = new String(body, "UTF-8");
-		System.out.println(" [x] Received-> '" + message + "'");
+		System.out.println(" [" + Thread.currentThread().getName() + "] Received-> '" + message + "'");
 	}
 }
