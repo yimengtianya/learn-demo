@@ -1,11 +1,6 @@
 package bean.lee.demo.rabbitmq.learn.p1;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
-
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import com.rabbitmq.client.ConnectionFactory;
 
 import bean.lee.demo.rabbitmq.learn.EndPoint;
 

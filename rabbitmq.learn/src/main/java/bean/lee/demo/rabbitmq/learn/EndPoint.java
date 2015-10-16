@@ -14,6 +14,7 @@ import com.rabbitmq.client.ConnectionFactory;
  * @date 2015年10月16日 上午11:48:17
  */
 public abstract class EndPoint {
+	
 
 	private ConnectionFactory factory;
 

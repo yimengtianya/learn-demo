@@ -1,7 +1,5 @@
 package bean.lee.demo.rabbitmq.learn.p1;
 
-import java.util.concurrent.TimeUnit;
-
 /**
  * 单发送单接收
  * 
