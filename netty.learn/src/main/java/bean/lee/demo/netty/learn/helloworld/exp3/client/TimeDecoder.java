@@ -1,4 +1,4 @@
-package bean.lee.demo.netty.learn.exp3.client;
+package bean.lee.demo.netty.learn.helloworld.exp3.client;
 
 import java.util.List;
 

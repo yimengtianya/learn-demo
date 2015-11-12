@@ -1,4 +1,4 @@
-package bean.lee.demo.netty.learn.exp1;
+package bean.lee.demo.netty.learn.helloworld.exp1;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;

@@ -1,4 +1,4 @@
-package bean.lee.demo.netty.learn.exp3.server;
+package bean.lee.demo.netty.learn.helloworld.exp2;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.ChannelFuture;
@@ -15,10 +15,10 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  * @author Dube
  * @date 2015年11月4日 下午2:55:16
  */
-public class TimeServer {
+public class EchoServer {
 	private int port;
 
-	public TimeServer(int port) {
+	public EchoServer(int port) {
 		this.port = port;
 	}
 
@@ -31,7 +31,7 @@ public class TimeServer {
 					.childHandler(new ChannelInitializer<SocketChannel>() {
 						@Override
 						public void initChannel(SocketChannel ch) throws Exception {
-							ch.pipeline().addLast(new TimeServerHandler());
+							ch.pipeline().addLast(new EchoServerHandler());
 						}
 					}).option(ChannelOption.SO_BACKLOG, 128).childOption(ChannelOption.SO_KEEPALIVE, true);
 
@@ -44,7 +44,7 @@ public class TimeServer {
 		}
 	}
 
-	// 测试：打开终端， rdate t 127.0.0.1 8080
+	// 测试：打开终端， telnet 127.0.0.1 8080
 	public static void main(String[] args) throws Exception {
 		int port;
 		if (args.length > 0) {
@@ -52,6 +52,6 @@ public class TimeServer {
 		} else {
 			port = 8080;
 		}
-		new TimeServer(port).run();
+		new EchoServer(port).run();
 	}
 }

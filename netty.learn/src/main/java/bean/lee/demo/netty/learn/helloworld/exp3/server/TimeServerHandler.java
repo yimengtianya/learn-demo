@@ -1,4 +1,4 @@
-package bean.lee.demo.netty.learn.exp3.server;
+package bean.lee.demo.netty.learn.helloworld.exp3.server;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelFuture;
