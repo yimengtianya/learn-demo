@@ -1,3 +1,3 @@
 Spring-boot
-1、嵌入jetty
-2、JAX-WS风格REST接口
+1銆佸祵鍏etty
+2銆丣AX-WS椋庢牸REST
