@@ -42,7 +42,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>bean.lee.demo.springboot.one.Application</mainClass>
+					<mainClass>bean.lee.demo.springboot.learn.Application</mainClass>
 					<layout>ZIP</layout>
 				</configuration>
 				<executions>
