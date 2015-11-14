@@ -24,21 +24,23 @@ import io.netty.handler.codec.http.HttpResponseEncoder;
 import io.netty.handler.stream.ChunkedWriteHandler;
 
 public class HttpStaticFileServerInitializer extends ChannelInitializer<SocketChannel> {
-    @Override
-    public void initChannel(SocketChannel ch) throws Exception {
-        // Create a default pipeline implementation.
-        ChannelPipeline pipeline = ch.pipeline();
+	@Override
+	public void initChannel(SocketChannel ch) throws Exception {
+		// Create a default pipeline implementation.
+		ChannelPipeline pipeline = ch.pipeline();
 
-        // Uncomment the following line if you want HTTPS
-        //SSLEngine engine = SecureChatSslContextFactory.getServerContext().createSSLEngine();
-        //engine.setUseClientMode(false);
-        //pipeline.addLast("ssl", new SslHandler(engine));
+		// Uncomment the following line if you want HTTPS
+		// SSLEngine engine =
+		// SecureChatSslContextFactory.getServerContext().createSSLEngine();
+		// engine.setUseClientMode(false);
+		// pipeline.addLast("ssl", new SslHandler(engine));
 
-        pipeline.addLast("decoder", new HttpRequestDecoder());
-        pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
-        pipeline.addLast("encoder", new HttpResponseEncoder());
-        pipeline.addLast("chunkedWriter", new ChunkedWriteHandler());
+		pipeline.addLast("decoder", new HttpRequestDecoder());// 请求解码器
+		pipeline.addLast("aggregator", new HttpObjectAggregator(65536));
+		pipeline.addLast("encoder", new HttpResponseEncoder());// 响应编码器
+		pipeline.addLast("chunkedWriter", new ChunkedWriteHandler());
 
-        pipeline.addLast("handler", new HttpStaticFileServerHandler(true)); // Specify false if SSL.
-    }
+		//业务逻辑处理
+		pipeline.addLast("handler", new HttpStaticFileServerHandler(true));// Specify false if SSL.
+	}
 }
