@@ -1,4 +1,4 @@
-package bean.lee.demo.springboot.learn.rest;
+package bean.lee.demo.springboot.learn.ws;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.DefaultValue;

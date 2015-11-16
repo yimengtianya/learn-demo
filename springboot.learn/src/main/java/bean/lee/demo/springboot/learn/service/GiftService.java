@@ -5,9 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.sql.DataSource;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import bean.lee.demo.springboot.learn.vo.Gift;
+import bean.lee.demo.springboot.learn.entity.Gift;
 
 /**
  * @author Dube
@@ -15,6 +18,9 @@ import bean.lee.demo.springboot.learn.vo.Gift;
  */
 @Component
 public class GiftService {
+
+	@Autowired
+	private DataSource dataSource;
 
 	private static Map<String, Gift> gifts = new HashMap<>();
 

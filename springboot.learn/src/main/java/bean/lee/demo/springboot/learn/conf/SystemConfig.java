@@ -8,4 +8,5 @@ package bean.lee.demo.springboot.learn.conf;
  */
 public class SystemConfig {
 
+
 }

@@ -1,4 +1,4 @@
-package bean.lee.demo.springboot.learn.vo;
+package bean.lee.demo.springboot.learn.entity;
 
 /**
  * 礼物
