@@ -1,5 +1,6 @@
 package bean.lee.push.notification.server;
 
+import bean.lee.push.notification.channel.ChannelManage;
 import bean.lee.push.notification.hander.MainServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
@@ -14,6 +15,6 @@ public class MainServerInitializer extends ChannelInitializer<SocketChannel> {
 	public void initChannel(SocketChannel ch) throws Exception {
 		ChannelPipeline pipeline = ch.pipeline();
 		// 业务逻辑处理
-		pipeline.addLast("handler", new MainServerHandler());
+		pipeline.addLast("handler", new MainServerHandler(new ChannelManage()));
 	}
 }

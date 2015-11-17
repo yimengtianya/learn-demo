@@ -1,6 +1,6 @@
 package bean.lee.push.notification.hander;
 
-import bean.lee.push.notification.channel.ChannelMap;
+import bean.lee.push.notification.channel.ChannelManage;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.socket.SocketChannel;
@@ -12,12 +12,18 @@ import io.netty.channel.socket.SocketChannel;
  */
 public class MainServerHandler extends ChannelHandlerAdapter {
 
+	private ChannelManage channelManage;
+
+	public MainServerHandler(ChannelManage channelManage) {
+		this.channelManage = channelManage;
+	}
+
 	/**
 	 * 连接断开
 	 */
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
-		ChannelMap.remove((SocketChannel) ctx.channel());
+		channelManage.remove(ctx.channel());
 	}
 
 	/**
@@ -25,6 +31,7 @@ public class MainServerHandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
+		channelManage.refresh(ctx.channel());
 		ctx.write(msg);
 		ctx.flush();
 	}
@@ -43,6 +50,6 @@ public class MainServerHandler extends ChannelHandlerAdapter {
 	 */
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		ChannelMap.add(ctx.channel().id().toString(), (SocketChannel) ctx.channel());
+		channelManage.add(ctx.channel().id().toString(), ctx.channel());
 	}
 }
