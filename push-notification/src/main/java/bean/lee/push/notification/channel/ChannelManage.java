@@ -3,6 +3,9 @@ package bean.lee.push.notification.channel;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import io.netty.channel.Channel;
 
 /**
@@ -12,6 +15,8 @@ import io.netty.channel.Channel;
  * @date 2015年11月17日 下午2:15:10
  */
 public class ChannelManage {
+
+	private final static Logger LOGGER = LogManager.getLogger(ChannelManage.class);
 
 	private Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
 
@@ -24,7 +29,7 @@ public class ChannelManage {
 
 	public void add(String clientId, Channel channel) {
 		map.put(clientId, channel);
-		System.out.println("接入：" + clientId + "  当前连接数：" + map.size());
+		LOGGER.debug(String.format("Add %s , Channel size is %d", clientId, map.size()));
 	}
 
 	public Channel get(String clientId) {
@@ -35,9 +40,9 @@ public class ChannelManage {
 		for (Map.Entry<String, Channel> entry : map.entrySet()) {
 			if (entry.getValue() == channel) {
 				map.remove(entry.getKey());
+				LOGGER.debug(String.format("Remove %s , Channel size is %d", entry.getKey(), map.size()));
 			}
 		}
-		System.out.println("断开：" + channel.id().toString() + "  当前连接数：" + map.size());
 	}
 
 	/**
