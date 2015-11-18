@@ -1,10 +1,16 @@
 package bean.lee.push.notification.hander;
 
 import bean.lee.push.notification.channel.ChannelManage;
+import bean.lee.push.notification.processer.Processer;
+import bean.lee.push.notification.processer.ProcesserFactory;
+import io.netty.channel.ChannelFutureListener;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.codec.mqtt.MqttConnAckMessage;
+import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
+import io.netty.handler.codec.mqtt.MqttDecoder;
 import io.netty.handler.codec.mqtt.MqttMessage;
 
 /**
@@ -35,11 +41,30 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		channelManage.refresh(ctx.channel());
 		MqttMessage message = (MqttMessage) msg;
-		System.out.println(message.variableHeader());
-		
-		
-		ctx.write(msg);
-		ctx.flush();
+		System.out
+				.println("Message type" + message.fixedHeader().messageType());
+
+		Processer p = ProcesserFactory.newMessage(message.fixedHeader()
+				.messageType());
+
+		if (p == null) {
+			return;
+		}
+		MqttMessage rmsg = p.proc(message, ctx);
+		if (rmsg == null) {
+			return;
+		}
+
+		if (rmsg instanceof MqttConnAckMessage
+				&& ((MqttConnAckMessage) rmsg).variableHeader()
+						.connectReturnCode() != MqttConnectReturnCode.CONNECTION_ACCEPTED) {
+			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE);
+		} /*else if (rmsg instanceof  DisconnectMessage) {
+			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE);
+		} else {
+			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
+		}*/
+
 	}
 
 	/**
@@ -60,7 +85,8 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	}
 
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
+	protected void messageReceived(ChannelHandlerContext ctx, Object msg)
+			throws Exception {
 
 	}
 }
