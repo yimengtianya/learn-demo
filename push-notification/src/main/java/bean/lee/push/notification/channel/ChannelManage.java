@@ -7,9 +7,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import io.netty.channel.Channel;
+import io.netty.channel.socket.SocketChannel;
 
 /**
  * 管理接入的channel
+ * 
+ * 单立
  * 
  * @author Dube
  * @date 2015年11月17日 下午2:15:10
@@ -22,14 +25,24 @@ public class ChannelManage {
 
 	private TimeCheck timeCheck;
 
-	public ChannelManage() {
+	private static ChannelManage channelManage = null;
+
+	public static ChannelManage instance() {
+		if (channelManage == null)
+			channelManage = new ChannelManage();
+		return channelManage;
+	}
+
+	private ChannelManage() {
 		timeCheck = new TimeCheck(this);
-		timeCheck.run();
+		timeCheck.start();
 	}
 
 	public void add(String clientId, Channel channel) {
+		// 不同步，最终一致
 		map.put(clientId, channel);
-		LOGGER.debug(String.format("Add %s , Channel size is %d", clientId, map.size()));
+		timeCheck.add(clientId);
+		LOGGER.debug(String.format("Add %s , Channel map size is %d", clientId, map.size()));
 	}
 
 	public Channel get(String clientId) {
@@ -39,10 +52,20 @@ public class ChannelManage {
 	public void remove(Channel channel) {
 		for (Map.Entry<String, Channel> entry : map.entrySet()) {
 			if (entry.getValue() == channel) {
-				map.remove(entry.getKey());
-				LOGGER.debug(String.format("Remove %s , Channel size is %d", entry.getKey(), map.size()));
+				remove(entry.getKey());
 			}
 		}
+	}
+
+	public void remove(String clientId) {
+		Channel channel = map.get(clientId);
+		if (channel != null && channel.isActive()) {
+			System.out.println("活跃的");
+			channel.close();
+		}
+		map.remove(clientId);
+		timeCheck.remove(clientId);
+		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}
 
 	/**

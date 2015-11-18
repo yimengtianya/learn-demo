@@ -3,7 +3,7 @@ package bean.lee.push.notification;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.server.MainServer;
+import bean.lee.push.notification.server.MqttServer;
 
 public class Main {
 
@@ -18,7 +18,7 @@ public class Main {
 			port = 8080;
 		}
 		LOGGER.info(String.format("Server start at port %d", port));
-		new MainServer(port).run();
+		new MqttServer(port).run();
 	}
 
 }

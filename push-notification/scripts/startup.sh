@@ -1,1 +1,1 @@
-java -server -Xms512m -Xmx2048m -jar push-notification-0.0.1-SNAPSHOT.jar
+java -server -Xms256m -Xmx1024m -jar push-notification-0.0.1-SNAPSHOT.jar
