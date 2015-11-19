@@ -69,7 +69,6 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 		} else {
 			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
 		}
-		ctx.flush();
 
 	}
 
@@ -82,12 +81,17 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 		ctx.close();
 	}
 
+	@Override
+	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+		ctx.flush();
+	}
+
 	/**
 	 * 连接建立
 	 */
 	@Override
 	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		channelManage.add(ctx.channel().id().toString(), ctx.channel());
+		//channelManage.add(ctx.channel().id().toString(), ctx.channel());
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package bean.lee.push.notification.processer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bean.lee.push.notification.channel.ChannelManage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttConnAckMessage;
 import io.netty.handler.codec.mqtt.MqttConnAckVariableHeader;
@@ -32,8 +33,9 @@ public class ConnectProcesser extends Processer {
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
 		MqttConnectMessage cm = (MqttConnectMessage) msg;
 
-		LOGGER.debug("Variable Header: %s", cm.variableHeader().toString());
+		LOGGER.debug(String.format("Variable Header: %s", cm.variableHeader().toString()));
 
+		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
 		// TODO 身份验证
 
 		return ACCEPTED;

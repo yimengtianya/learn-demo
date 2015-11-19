@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bean.lee.push.notification.pust.PustManager;
 import io.netty.channel.Channel;
 
 /**
@@ -69,15 +70,18 @@ public class TimeCheck extends Thread {
 	}
 
 	public void run() {
-		/*while (true) {
-			check();
+		while (true) {
+			//check();
+			
 			try {
 				TimeUnit.SECONDS.sleep(10);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}*/
+			System.out.println(1);
+			PustManager.pust("mqtt", "abcd1234");
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package bean.lee.push.notification.processer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttFixedHeader;
 import io.netty.handler.codec.mqtt.MqttMessage;
@@ -31,11 +32,14 @@ public class SubscibeProcesser extends Processer {
 
 		MqttSubscribePayload payload = message.payload();
 
-		LOGGER.debug("[%s] Subscribe at tipic [%s].", ctx.channel().id().toString(), payload.topicSubscriptions());
+		LOGGER.debug(String.format("[%s] Subscribe at tipic [%s].", ctx.channel().id().toString(),
+				payload.topicSubscriptions()));
+
+		TopicManager.register(payload.topicSubscriptions().get(0).topicName(), ctx.channel().id().toString());
 
 		MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.SUBACK, false, MqttQoS.AT_MOST_ONCE,
 				false, 0);
-		
+
 		MqttMessageIdVariableHeader mqttMessageIdVariableHeader = MqttMessageIdVariableHeader.from(1);
 		MqttSubAckPayload mqttSubAckPayload = new MqttSubAckPayload(1);
 
