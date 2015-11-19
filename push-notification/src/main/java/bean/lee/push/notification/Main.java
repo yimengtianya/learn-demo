@@ -15,7 +15,7 @@ public class Main {
 		if (args.length > 0) {
 			port = Integer.parseInt(args[0]);
 		} else {
-			port = 8080;
+			port = 1883;
 		}
 		LOGGER.info(String.format("Server start at port %d", port));
 		new MqttServer(port).run();

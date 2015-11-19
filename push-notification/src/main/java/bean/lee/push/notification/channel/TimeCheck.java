@@ -69,7 +69,7 @@ public class TimeCheck extends Thread {
 	}
 
 	public void run() {
-		while (true) {
+		/*while (true) {
 			check();
 			try {
 				TimeUnit.SECONDS.sleep(10);
@@ -77,7 +77,7 @@ public class TimeCheck extends Thread {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
+		}*/
 	}
 
 }

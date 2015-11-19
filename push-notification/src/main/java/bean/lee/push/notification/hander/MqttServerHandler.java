@@ -1,5 +1,8 @@
 package bean.lee.push.notification.hander;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import bean.lee.push.notification.channel.ChannelManage;
 import bean.lee.push.notification.processer.Processer;
 import bean.lee.push.notification.processer.ProcesserFactory;
@@ -19,6 +22,8 @@ import io.netty.handler.codec.mqtt.MqttMessage;
  * @date 2015年11月4日 下午2:43:04
  */
 public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
+
+	private final static Logger LOGGER = LogManager.getLogger(MqttServerHandler.class);
 
 	private ChannelManage channelManage;
 
@@ -41,11 +46,10 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
 		channelManage.refresh(ctx.channel());
 		MqttMessage message = (MqttMessage) msg;
-		System.out
-				.println("Message type" + message.fixedHeader().messageType());
 
-		Processer p = ProcesserFactory.newMessage(message.fixedHeader()
-				.messageType());
+		LOGGER.debug(String.format("Fixed Header：%s ", message.fixedHeader().toString()));
+
+		Processer p = ProcesserFactory.newMessage(message.fixedHeader().messageType());
 
 		if (p == null) {
 			return;
@@ -55,15 +59,13 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 			return;
 		}
 
-		if (rmsg instanceof MqttConnAckMessage
-				&& ((MqttConnAckMessage) rmsg).variableHeader()
-						.connectReturnCode() != MqttConnectReturnCode.CONNECTION_ACCEPTED) {
-			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE);
-		} /*else if (rmsg instanceof  DisconnectMessage) {
+		if (rmsg instanceof MqttConnAckMessage && ((MqttConnAckMessage) rmsg).variableHeader()
+				.connectReturnCode() != MqttConnectReturnCode.CONNECTION_ACCEPTED) {
 			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE);
 		} else {
 			ctx.write(rmsg).addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
-		}*/
+		}
+		ctx.flush();
 
 	}
 
@@ -85,8 +87,7 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	}
 
 	@Override
-	protected void messageReceived(ChannelHandlerContext ctx, Object msg)
-			throws Exception {
+	protected void messageReceived(ChannelHandlerContext ctx, Object msg) throws Exception {
 
 	}
 }

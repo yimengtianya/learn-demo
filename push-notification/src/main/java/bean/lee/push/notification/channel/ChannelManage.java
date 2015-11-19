@@ -60,7 +60,6 @@ public class ChannelManage {
 	public void remove(String clientId) {
 		Channel channel = map.get(clientId);
 		if (channel != null && channel.isActive()) {
-			System.out.println("活跃的");
 			channel.close();
 		}
 		map.remove(clientId);
