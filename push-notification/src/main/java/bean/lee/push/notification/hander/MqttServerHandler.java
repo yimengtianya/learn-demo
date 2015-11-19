@@ -44,7 +44,9 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
+
 		channelManage.refresh(ctx.channel());
+
 		MqttMessage message = (MqttMessage) msg;
 
 		LOGGER.debug(String.format("Fixed Header：%s ", message.fixedHeader().toString()));
@@ -54,7 +56,9 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 		if (p == null) {
 			return;
 		}
+
 		MqttMessage rmsg = p.proc(message, ctx);
+
 		if (rmsg == null) {
 			return;
 		}
