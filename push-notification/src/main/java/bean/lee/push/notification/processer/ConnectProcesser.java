@@ -36,6 +36,7 @@ public class ConnectProcesser extends Processer {
 		LOGGER.debug(String.format("Variable Header: %s", cm.variableHeader().toString()));
 
 		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
+
 		// TODO 身份验证
 
 		return ACCEPTED;

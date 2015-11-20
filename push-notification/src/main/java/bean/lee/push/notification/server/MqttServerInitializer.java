@@ -14,6 +14,6 @@ public class MqttServerInitializer extends ChannelInitializer<SocketChannel> {
 		ChannelPipeline pipeline = ch.pipeline();
 		pipeline.addLast("encoder", new MqttEncoder());
 		pipeline.addLast("decoder", new MqttDecoder());
-		pipeline.addLast("handler", new MqttServerHandler(ChannelManage.instance()));
+		pipeline.addLast("handler", new MqttServerHandler());
 	}
 }

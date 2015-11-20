@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import bean.lee.push.notification.check.TimeCheck;
 import io.netty.channel.Channel;
 import io.netty.channel.socket.SocketChannel;
 
@@ -23,8 +24,6 @@ public class ChannelManage {
 
 	private Map<String, Channel> map = new ConcurrentHashMap<String, Channel>();
 
-	private TimeCheck timeCheck;
-
 	private static ChannelManage channelManage = null;
 
 	public static ChannelManage instance() {
@@ -34,14 +33,12 @@ public class ChannelManage {
 	}
 
 	private ChannelManage() {
-		timeCheck = new TimeCheck(this);
-		timeCheck.start();
 	}
 
 	public void add(String clientId, Channel channel) {
 		// 不同步，最终一致
 		map.put(clientId, channel);
-		timeCheck.add(clientId);
+		TimeCheck.instance().add(clientId);
 		LOGGER.debug(String.format("Add %s , Channel map size is %d", clientId, map.size()));
 	}
 
@@ -63,7 +60,7 @@ public class ChannelManage {
 			channel.close();
 		}
 		map.remove(clientId);
-		timeCheck.remove(clientId);
+		TimeCheck.instance().remove(clientId);
 		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}
 
@@ -76,7 +73,22 @@ public class ChannelManage {
 	 * @date 2015年11月17日 下午6:02:42
 	 */
 	public void refresh(Channel channel) {
-		timeCheck.refreshTime(channel.id().toString());
+		TimeCheck.instance().refreshTime(channel.id().toString());
+	}
+
+	/**
+	 * 判断channel是否仍存在
+	 * 
+	 * @param channel
+	 * @return
+	 *
+	 * @author Dube
+	 * @date 2015年11月20日 上午11:23:23
+	 */
+	public boolean exist(Channel channel) {
+		if (channel == null)
+			return false;
+		return map.containsKey(channel.id().toString());
 	}
 
 }

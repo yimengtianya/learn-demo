@@ -25,11 +25,7 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 
 	private final static Logger LOGGER = LogManager.getLogger(MqttServerHandler.class);
 
-	private ChannelManage channelManage;
-
-	public MqttServerHandler(ChannelManage channelManage) {
-		this.channelManage = channelManage;
-	}
+	private ChannelManage channelManage = ChannelManage.instance();
 
 	/**
 	 * 连接断开
@@ -44,8 +40,6 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	 */
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) {
-
-		channelManage.refresh(ctx.channel());
 
 		MqttMessage message = (MqttMessage) msg;
 
@@ -72,26 +66,16 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 
 	}
 
-	/**
-	 * 异常
-	 */
 	@Override
-	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) { // (4)
-		// cause.printStackTrace();
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
+		// TODO 异常处理
+		cause.printStackTrace();
 		ctx.close();
 	}
 
 	@Override
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		ctx.flush();
-	}
-
-	/**
-	 * 连接建立
-	 */
-	@Override
-	public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-		//channelManage.add(ctx.channel().id().toString(), ctx.channel());
 	}
 
 	@Override

@@ -1,4 +1,4 @@
-package bean.lee.push.notification.channel;
+package bean.lee.push.notification.check;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,8 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.pust.PustManager;
-import io.netty.channel.Channel;
+import bean.lee.push.notification.channel.ChannelManage;
 
 /**
  * 时间检测，用于清除超时的channel
@@ -27,10 +26,16 @@ public class TimeCheck extends Thread {
 	 */
 	private long outTime = 1000 * 60 * 10;
 
-	private ChannelManage channelManage;
+	private static TimeCheck timeCheck = null;
 
-	public TimeCheck(ChannelManage channelManage) {
-		this.channelManage = channelManage;
+	public static TimeCheck instance() {
+		if (null == timeCheck)
+			timeCheck = new TimeCheck();
+		return timeCheck;
+	}
+
+	private TimeCheck() {
+		start();
 	}
 
 	private Map<String, Long> channelTimeMap = new ConcurrentHashMap<String, Long>();
@@ -62,7 +67,7 @@ public class TimeCheck extends Thread {
 			Long time = channelTimeMap.get(clientId);
 			if (time != null && ((timeNow - time) > outTime)) {
 				remove(clientId);
-				channelManage.remove(clientId);
+				ChannelManage.instance().remove(clientId);
 			}
 		}
 		LOGGER.debug(String.format("Chack over-time end, channel map size %d", channelTimeMap.size()));
@@ -71,16 +76,12 @@ public class TimeCheck extends Thread {
 
 	public void run() {
 		while (true) {
-			//check();
-			
+			check();
 			try {
 				TimeUnit.SECONDS.sleep(10);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			System.out.println(1);
-			PustManager.pust("mqtt", "abcd1234");
 		}
 	}
 
