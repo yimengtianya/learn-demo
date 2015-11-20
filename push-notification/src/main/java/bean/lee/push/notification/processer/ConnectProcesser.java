@@ -9,6 +9,7 @@ import io.netty.handler.codec.mqtt.MqttConnAckMessage;
 import io.netty.handler.codec.mqtt.MqttConnAckVariableHeader;
 import io.netty.handler.codec.mqtt.MqttConnectMessage;
 import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
+import io.netty.handler.codec.mqtt.MqttConnectVariableHeader;
 import io.netty.handler.codec.mqtt.MqttFixedHeader;
 import io.netty.handler.codec.mqtt.MqttMessage;
 import io.netty.handler.codec.mqtt.MqttMessageType;
@@ -29,11 +30,19 @@ public class ConnectProcesser extends Processer {
 	 */
 	private static MqttConnAckMessage ACCEPTED = createConnAckMessage(MqttConnectReturnCode.CONNECTION_ACCEPTED);
 
+	private static MqttConnAckMessage REFUSED_UNACCEPTABLE_PROTOCOL_VERSION = createConnAckMessage(
+			MqttConnectReturnCode.CONNECTION_REFUSED_UNACCEPTABLE_PROTOCOL_VERSION);
+
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
 		MqttConnectMessage cm = (MqttConnectMessage) msg;
+		MqttConnectVariableHeader connectVariableHeader = cm.variableHeader();
+		LOGGER.debug(String.format("Variable Header: %s", connectVariableHeader.toString()));
 
-		LOGGER.debug(String.format("Variable Header: %s", cm.variableHeader().toString()));
+		// 协议版本验证
+		if (connectVariableHeader.version() != 3) {
+			return REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
+		}
 
 		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
 

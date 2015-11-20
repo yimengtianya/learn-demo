@@ -5,6 +5,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import bean.lee.push.notification.PustTest;
+
 /**
  * 维护topic和channel关系
  * 
@@ -13,10 +15,20 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class TopicManager {
 
-	private static Map<String, Set<String>> topicChannelMap = new ConcurrentHashMap<>();
+	private Map<String, Set<String>> topicChannelMap = new ConcurrentHashMap<>();
 
-	synchronized public static void register(String topic, String channelId) {
-		System.out.println("注册："+topic+"  "+channelId);
+	private static TopicManager topicManager = null;
+
+	public static TopicManager instance() {
+		if (topicManager == null) {
+			topicManager = new TopicManager();
+			// 测试发送
+			new PustTest().start();
+		}
+		return topicManager;
+	}
+
+	public void register(String topic, String channelId) {
 		if (exist(topic)) {
 			topicChannelMap.get(topic).add(channelId);
 		} else {
@@ -26,16 +38,22 @@ public class TopicManager {
 		}
 	}
 
-	public static boolean exist(String topic) {
+	public boolean exist(String topic) {
 		return topicChannelMap.containsKey(topic);
 	}
 
-	public static Set<String> channelSubscirbedTopic(String topic) {
+	public Set<String> channelSubscirbedTopic(String topic) {
 		return topicChannelMap.get(topic);
 	}
 
-	public static Set<String> topics() {
+	public Set<String> topics() {
 		return topicChannelMap.keySet();
+	}
+
+	public void removeChannel(String channelId) {
+		for (Map.Entry<String, Set<String>> entry : topicChannelMap.entrySet()) {
+			entry.getValue().remove(channelId);
+		}
 	}
 
 }

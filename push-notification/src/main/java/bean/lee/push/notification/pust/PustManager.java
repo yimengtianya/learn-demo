@@ -21,8 +21,6 @@ public class PustManager {
 	private static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
 
 	public static void pust(String topic, String message) {
-
-		System.out.println(2);
 		MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.PUBLISH, false, MqttQoS.AT_LEAST_ONCE,
 				true, 0);
 		MqttPublishVariableHeader mqttPublishVariableHeader = new MqttPublishVariableHeader(topic, 1);
@@ -30,8 +28,7 @@ public class PustManager {
 		payload.writeBytes(message.getBytes(CharsetUtil.UTF_8));
 		MqttPublishMessage publishMessage = new MqttPublishMessage(mqttFixedHeader, mqttPublishVariableHeader, payload);
 
-		Set<String> channelIds = TopicManager.channelSubscirbedTopic(topic);
-		System.out.println(channelIds);
+		Set<String> channelIds = TopicManager.instance().channelSubscirbedTopic(topic);
 		if (channelIds.size() > 0) {
 			for (String channelId : channelIds) {
 				System.out.println("message " + channelId + " " + topic);

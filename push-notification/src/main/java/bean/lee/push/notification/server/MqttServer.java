@@ -1,5 +1,6 @@
 package bean.lee.push.notification.server;
 
+import bean.lee.push.notification.PustTest;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
@@ -35,6 +36,7 @@ public class MqttServer {
 			ChannelFuture f = b.bind(port).sync();
 
 			f.channel().closeFuture().sync();
+
 		} finally {
 			workerGroup.shutdownGracefully();
 			bossGroup.shutdownGracefully();
