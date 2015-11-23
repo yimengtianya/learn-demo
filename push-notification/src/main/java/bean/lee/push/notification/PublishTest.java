@@ -4,7 +4,7 @@ import java.util.concurrent.TimeUnit;
 
 import bean.lee.push.notification.publish.PublishManager;
 
-public class PustTest extends Thread {
+public class PublishTest extends Thread {
 
 	int i = 0;
 

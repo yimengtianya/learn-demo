@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import bean.lee.push.notification.PustTest;
+import bean.lee.push.notification.PublishTest;
 
 /**
  * 维护topic和channel关系
@@ -23,7 +23,7 @@ public class TopicManager {
 		if (topicManager == null) {
 			topicManager = new TopicManager();
 			// 测试发送
-			new PustTest().start();
+			new PublishTest().start();
 		}
 		return topicManager;
 	}
