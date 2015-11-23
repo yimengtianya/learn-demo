@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import bean.lee.push.notification.check.TimeCheck;
+import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.Channel;
 import io.netty.channel.socket.SocketChannel;
 
@@ -61,6 +62,7 @@ public class ChannelManage {
 		}
 		map.remove(clientId);
 		TimeCheck.instance().remove(clientId);
+		TopicManager.instance().removeChannel(clientId);
 		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}
 

@@ -17,7 +17,7 @@ public class PustTest extends Thread {
 				e.printStackTrace();
 			}
 			i++;
-			PublishManager.pust("mqtt", "the message " + i);
+			PublishManager.publish("mqtt", "the message " + i);
 		}
 	}
 

@@ -14,6 +14,7 @@ public final class ProcesserFactory {
 	private static DisconnectProcesser disconnectProcesser = new DisconnectProcesser();
 	private static SubscibeProcesser subscibeProcesser = new SubscibeProcesser();
 	private static PingReqProcesser pingReqProcesser = new PingReqProcesser();
+	private static PubAckProcesser pubAckProcesser = new PubAckProcesser();
 
 	private ProcesserFactory() {
 	}
@@ -29,6 +30,8 @@ public final class ProcesserFactory {
 			return subscibeProcesser;
 		case PINGREQ:
 			return pingReqProcesser;
+		case PUBACK:
+			return pubAckProcesser;
 		default:
 			return null;
 		}

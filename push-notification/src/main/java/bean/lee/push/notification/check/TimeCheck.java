@@ -66,7 +66,7 @@ public class TimeCheck extends Thread {
 		for (String clientId : clientIds) {
 			Long time = channelTimeMap.get(clientId);
 			if (time != null && ((timeNow - time) > outTime)) {
-				remove(clientId);
+				// remove(clientId); 由ChannelManage调用
 				ChannelManage.instance().remove(clientId);
 			}
 		}

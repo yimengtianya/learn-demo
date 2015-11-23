@@ -38,16 +38,14 @@ public class ConnectProcesser extends Processer {
 		MqttConnectMessage cm = (MqttConnectMessage) msg;
 		MqttConnectVariableHeader connectVariableHeader = cm.variableHeader();
 		LOGGER.debug(String.format("Variable Header: %s", connectVariableHeader.toString()));
-
 		// 协议版本验证
 		if (connectVariableHeader.version() != 3) {
+			ctx.fireChannelRead(msg);
 			return REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
 		}
-
 		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
-
 		// TODO 身份验证
-
+		ctx.fireChannelRead(msg);
 		return ACCEPTED;
 	}
 

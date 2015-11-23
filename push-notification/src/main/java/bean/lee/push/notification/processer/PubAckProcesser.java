@@ -7,21 +7,18 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttMessage;
 
 /**
- * 断开连接请求处理
  * 
  * @author Dube
- * @date 2015年11月19日 下午3:48:28
+ * @date 2015年11月23日 上午11:51:45
  */
-public class DisconnectProcesser extends Processer {
+public class PubAckProcesser extends Processer {
 
-	private final static Logger LOGGER = LogManager.getLogger(DisconnectProcesser.class);
+	private final static Logger LOGGER = LogManager.getLogger(PubAckProcesser.class);
 
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
-		LOGGER.debug("Variable Header: %s", msg.variableHeader().toString());
+		LOGGER.debug(String.format("Variable Header: %s", msg.variableHeader().toString()));
 		ctx.fireChannelRead(msg);
-		ctx.channel().close();
-		// TODO 清楚连接信息，订阅信息
 		return null;
 	}
 

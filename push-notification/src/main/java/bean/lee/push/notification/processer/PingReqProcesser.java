@@ -41,8 +41,10 @@ public class PingReqProcesser extends Processer {
 		Channel channel = ctx.channel();
 		if (ChannelManage.instance().exist(channel)) {
 			channelManage.refresh(channel);
+			ctx.fireChannelRead(msg);
 			return PINGRESP;
 		}
+		ctx.fireChannelRead(msg);
 		return DISCONNECT;
 	}
 
