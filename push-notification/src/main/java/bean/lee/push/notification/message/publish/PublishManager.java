@@ -1,11 +1,11 @@
-package bean.lee.push.notification.publish;
+package bean.lee.push.notification.message.publish;
 
 import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.channel.ChannelManage;
+import bean.lee.push.notification.route.ChannelManage;
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.ByteBufAllocator;

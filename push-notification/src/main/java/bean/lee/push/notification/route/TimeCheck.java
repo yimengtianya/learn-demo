@@ -1,4 +1,4 @@
-package bean.lee.push.notification.check;
+package bean.lee.push.notification.route;
 
 import java.util.Date;
 import java.util.Map;
@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.channel.ChannelManage;
+import bean.lee.push.notification.route.ChannelManage;
 
 /**
  * 时间检测，用于清除超时的channel

@@ -1,9 +1,9 @@
-package bean.lee.push.notification.processer;
+package bean.lee.push.notification.server.processer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.channel.ChannelManage;
+import bean.lee.push.notification.route.ChannelManage;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttConnAckMessage;
 import io.netty.handler.codec.mqtt.MqttConnAckVariableHeader;

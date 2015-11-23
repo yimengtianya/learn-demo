@@ -1,4 +1,4 @@
-package bean.lee.push.notification.processer;
+package bean.lee.push.notification.server.processer;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttMessage;

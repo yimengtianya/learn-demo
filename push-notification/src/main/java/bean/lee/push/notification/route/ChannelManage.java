@@ -1,4 +1,4 @@
-package bean.lee.push.notification.channel;
+package bean.lee.push.notification.route;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -6,10 +6,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import bean.lee.push.notification.check.TimeCheck;
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.Channel;
-import io.netty.channel.socket.SocketChannel;
 
 /**
  * 管理接入的channel

@@ -2,7 +2,7 @@ package bean.lee.push.notification;
 
 import java.util.concurrent.TimeUnit;
 
-import bean.lee.push.notification.publish.PublishManager;
+import bean.lee.push.notification.message.publish.PublishManager;
 
 public class PublishTest extends Thread {
 

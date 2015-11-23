@@ -1,4 +1,4 @@
-package bean.lee.push.notification.processer;
+package bean.lee.push.notification.server.processer;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
