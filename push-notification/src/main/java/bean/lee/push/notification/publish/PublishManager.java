@@ -1,4 +1,4 @@
-package bean.lee.push.notification.pust;
+package bean.lee.push.notification.publish;
 
 import java.util.Set;
 
@@ -16,7 +16,7 @@ import io.netty.handler.codec.mqtt.MqttPublishVariableHeader;
 import io.netty.handler.codec.mqtt.MqttQoS;
 import io.netty.util.CharsetUtil;
 
-public class PustManager {
+public class PublishManager {
 
 	private static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
 

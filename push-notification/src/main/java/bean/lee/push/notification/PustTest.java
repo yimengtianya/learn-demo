@@ -2,7 +2,7 @@ package bean.lee.push.notification;
 
 import java.util.concurrent.TimeUnit;
 
-import bean.lee.push.notification.pust.PustManager;
+import bean.lee.push.notification.publish.PublishManager;
 
 public class PustTest extends Thread {
 
@@ -17,7 +17,7 @@ public class PustTest extends Thread {
 				e.printStackTrace();
 			}
 			i++;
-			PustManager.pust("mqtt", "the message " + i);
+			PublishManager.pust("mqtt", "the message " + i);
 		}
 	}
 
