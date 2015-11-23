@@ -1,6 +1,5 @@
 package bean.lee.push.notification.server;
 
-import bean.lee.push.notification.route.ChannelManage;
 import bean.lee.push.notification.server.hander.MqttServerHandler;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelPipeline;
