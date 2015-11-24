@@ -10,11 +10,11 @@ import org.springframework.context.annotation.Configuration;
  * @author Dube
  * @date 2015年11月14日 下午5:22:59
  */
-@Configuration
-@EnableDiscoveryClient
+//@Configuration
+//@EnableDiscoveryClient
 public class SystemConfig {
 
-	@Value("${spring.application.name:testZookeeperApp}")
+	//@Value("${spring.application.name:testZookeeperApp}")
 	private String appname;
 
 }
