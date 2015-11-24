@@ -17,7 +17,7 @@ public class PublishTest extends Thread {
 				e.printStackTrace();
 			}
 			i++;
-			PublishManager.publish("mqtt", "the message " + i);
+			PublishManager.publish("mqtt", "this is a 消息： " + i);
 		}
 	}
 
