@@ -19,7 +19,6 @@ public class DisconnectProcesser extends Processer {
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
 		LOGGER.debug("Variable Header: %s", msg.variableHeader().toString());
-		ctx.fireChannelRead(msg);
 		ctx.channel().close();
 		// TODO 清楚连接信息，订阅信息
 		return null;

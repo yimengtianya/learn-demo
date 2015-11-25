@@ -18,7 +18,6 @@ public class PubAckProcesser extends Processer {
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
 		LOGGER.debug(String.format("Variable Header: %s", msg.variableHeader().toString()));
-		ctx.fireChannelRead(msg);
 		return null;
 	}
 

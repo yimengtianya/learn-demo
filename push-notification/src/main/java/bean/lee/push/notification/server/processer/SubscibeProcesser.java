@@ -55,7 +55,6 @@ public class SubscibeProcesser extends Processer {
 		MqttSubAckPayload mqttSubAckPayload = new MqttSubAckPayload(topicQos);
 		MqttSubAckMessage subAckMessage = new MqttSubAckMessage(mqttFixedHeader, mqttMessageIdVariableHeader,
 				mqttSubAckPayload);
-		ctx.fireChannelRead(msg);
 		return subAckMessage;
 	}
 
