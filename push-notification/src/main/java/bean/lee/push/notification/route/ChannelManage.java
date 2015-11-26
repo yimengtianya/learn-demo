@@ -58,9 +58,11 @@ public class ChannelManage {
 		if (channel != null && channel.isActive()) {
 			channel.close();
 		}
-		map.remove(clientId);
-		TimeCheck.instance().remove(clientId);
-		TopicManager.instance().removeChannel(clientId);
+		synchronized (this) {
+			map.remove(clientId);
+			TimeCheck.instance().remove(clientId);
+			TopicManager.instance().removeChannel(clientId);
+		}
 		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}
 
