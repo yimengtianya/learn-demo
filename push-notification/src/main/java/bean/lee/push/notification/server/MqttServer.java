@@ -30,7 +30,7 @@ public class MqttServer {
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 					.option(ChannelOption.TCP_NODELAY, true)
 					.option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
-					.childHandler(new MqttServerInitializer()).option(ChannelOption.SO_BACKLOG, 128)
+					.childHandler(new MqttServerInitializer()).option(ChannelOption.SO_BACKLOG, 2048)
 					.childOption(ChannelOption.SO_KEEPALIVE, true);
 
 			ChannelFuture f = b.bind(port).sync();
