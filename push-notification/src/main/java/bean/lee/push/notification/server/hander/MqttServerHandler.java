@@ -66,7 +66,7 @@ public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 	@Override
 	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
 		// TODO 异常处理
-		cause.printStackTrace();
+		//cause.printStackTrace();
 		ctx.close();
 	}
 
