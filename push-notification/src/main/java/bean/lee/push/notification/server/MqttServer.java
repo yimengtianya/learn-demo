@@ -1,6 +1,5 @@
 package bean.lee.push.notification.server;
 
-import bean.lee.push.notification.PublishTest;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;

@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import bean.lee.push.notification.server.MqttServer;
+import bean.lee.push.notification.zk.ZooKeeperClient;
 
 public class Main {
 
@@ -18,6 +19,7 @@ public class Main {
 			port = 1883;
 		}
 		LOGGER.info(String.format("Server start at port %d", port));
+		new ZooKeeperClient().init();
 		new MqttServer(port).run();
 	}
 
