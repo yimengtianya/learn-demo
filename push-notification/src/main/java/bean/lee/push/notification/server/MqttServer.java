@@ -28,10 +28,10 @@ public class MqttServer {
 		try {
 			ServerBootstrap b = new ServerBootstrap();
 			b.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
-					.option(ChannelOption.TCP_NODELAY, true).option(ChannelOption.SO_BACKLOG, 2048)
+					.option(ChannelOption.TCP_NODELAY, true).option(ChannelOption.SO_BACKLOG, 10240)
 					.option(ChannelOption.SO_REUSEADDR, true)
 					.option(ChannelOption.RCVBUF_ALLOCATOR, AdaptiveRecvByteBufAllocator.DEFAULT)
-					.option(ChannelOption.SO_RCVBUF, 8).option(ChannelOption.SO_RCVBUF, 32)
+					.option(ChannelOption.SO_RCVBUF, 8 * 1024).option(ChannelOption.SO_SNDBUF, 32 * 1024)
 					.childHandler(new MqttServerInitializer()).childOption(ChannelOption.SO_KEEPALIVE, true);
 
 			ChannelFuture f = b.bind(port).sync();
