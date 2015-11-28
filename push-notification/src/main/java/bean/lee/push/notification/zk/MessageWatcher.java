@@ -37,13 +37,10 @@ public class MessageWatcher implements Watcher {
 			try {
 				String jsonMessage = new String(zooKeeper.getData(MESSAGE_PATH, true, null), "UTF-8");
 				Message message = new ObjectMapper().readValue(jsonMessage, Message.class);
-				System.out.println(message.getTopic() + "  " + message.getContent());
 				PublishManager.publish(message.getTopic(), message.getContent());
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 		}
 	}
 
