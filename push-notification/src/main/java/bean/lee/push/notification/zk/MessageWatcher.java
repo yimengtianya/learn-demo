@@ -1,10 +1,7 @@
 package bean.lee.push.notification.zk;
 
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
-import java.util.Map;
-
-import org.apache.zookeeper.KeeperException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.EventType;
@@ -23,6 +20,8 @@ import bean.lee.push.notification.message.publish.PublishManager;
  */
 public class MessageWatcher implements Watcher {
 
+	private final static Logger LOGGER = LogManager.getLogger(MessageWatcher.class);
+
 	private ZooKeeper zooKeeper;
 
 	public static final String MESSAGE_PATH = "/message";
@@ -36,6 +35,7 @@ public class MessageWatcher implements Watcher {
 		if (event.getType() == EventType.NodeDataChanged) {
 			try {
 				String jsonMessage = new String(zooKeeper.getData(MESSAGE_PATH, true, null), "UTF-8");
+				LOGGER.debug(jsonMessage);
 				Message message = new ObjectMapper().readValue(jsonMessage, Message.class);
 				PublishManager.publish(message.getTopic(), message.getContent());
 			} catch (Exception e) {

@@ -19,7 +19,7 @@ public class Main {
 			port = 1883;
 		}
 		LOGGER.info(String.format("Server start at port %d", port));
-		new ZooKeeperClient().init();
+		new ZooKeeperClient().connect();
 		new MqttServer(port).run();
 	}
 

@@ -10,8 +10,8 @@ public class ZkTest {
 
 	@Test
 	public void test() throws Exception {
-		new ZooKeeperClient().init();
-		TimeUnit.MINUTES.sleep(5);
+		new ZooKeeperClient().connect();
+		TimeUnit.SECONDS.sleep(10);
 	}
 
 }
