@@ -25,7 +25,6 @@ public class ZooKeeperClient {
 				sessionEvent(connectionLatch, event);
 			}
 		});
-		System.out.println(1);
 	}
 
 	public void connect() {
