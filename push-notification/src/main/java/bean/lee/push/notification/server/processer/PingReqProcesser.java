@@ -1,7 +1,7 @@
 package bean.lee.push.notification.server.processer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.route.ChannelManage;
 import io.netty.channel.Channel;
@@ -20,7 +20,7 @@ import io.netty.handler.codec.mqtt.MqttQoS;
  */
 public class PingReqProcesser extends Processer {
 
-	private final static Logger LOGGER = LogManager.getLogger(DisconnectProcesser.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(DisconnectProcesser.class);
 
 	private ChannelManage channelManage = ChannelManage.instance();
 

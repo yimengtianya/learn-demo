@@ -2,8 +2,8 @@ package bean.lee.push.notification.server.processer;
 
 import java.util.List;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.ChannelHandlerContext;
@@ -26,7 +26,7 @@ import io.netty.handler.codec.mqtt.MqttTopicSubscription;
  */
 public class SubscibeProcesser extends Processer {
 
-	private final static Logger LOGGER = LogManager.getLogger(SubscibeProcesser.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(SubscibeProcesser.class);
 
 	private TopicManager topicManager = TopicManager.instance();
 

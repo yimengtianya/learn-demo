@@ -6,8 +6,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
 
 import bean.lee.push.notification.route.ChannelManage;
 
@@ -19,7 +19,7 @@ import bean.lee.push.notification.route.ChannelManage;
  */
 public class TimeCheck extends Thread {
 
-	private final static Logger LOGGER = LogManager.getLogger(TimeCheck.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(TimeCheck.class);
 
 	/**
 	 * 超时时间，默认10分钟

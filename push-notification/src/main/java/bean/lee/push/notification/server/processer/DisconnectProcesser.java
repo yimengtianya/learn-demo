@@ -1,7 +1,7 @@
 package bean.lee.push.notification.server.processer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttMessage;
@@ -14,7 +14,7 @@ import io.netty.handler.codec.mqtt.MqttMessage;
  */
 public class DisconnectProcesser extends Processer {
 
-	private final static Logger LOGGER = LogManager.getLogger(DisconnectProcesser.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(DisconnectProcesser.class);
 
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {

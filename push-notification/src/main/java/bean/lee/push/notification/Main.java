@@ -1,14 +1,14 @@
 package bean.lee.push.notification;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.server.MqttServer;
 import bean.lee.push.notification.zk.ZooKeeperClient;
 
 public class Main {
 
-	private final static Logger LOGGER = LogManager.getLogger(Main.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
 	// 测试：打开终端， telnet 127.0.0.1 8080
 	public static void main(String[] args) throws Exception {

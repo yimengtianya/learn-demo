@@ -1,7 +1,7 @@
 package bean.lee.push.notification.server.processer;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.route.ChannelManage;
 import io.netty.channel.ChannelHandlerContext;
@@ -23,7 +23,7 @@ import io.netty.handler.codec.mqtt.MqttQoS;
  */
 public class ConnectProcesser extends Processer {
 
-	private final static Logger LOGGER = LogManager.getLogger(ConnectProcesser.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(ConnectProcesser.class);
 
 	/**
 	 * 接受连接

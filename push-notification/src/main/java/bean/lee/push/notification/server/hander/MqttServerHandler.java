@@ -1,7 +1,7 @@
 package bean.lee.push.notification.server.hander;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.route.ChannelManage;
 import bean.lee.push.notification.server.processer.Processer;
@@ -20,7 +20,7 @@ import io.netty.handler.codec.mqtt.MqttMessage;
  */
 public class MqttServerHandler extends SimpleChannelInboundHandler<Object> {
 
-	private final static Logger LOGGER = LogManager.getLogger(MqttServerHandler.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(MqttServerHandler.class);
 
 	private ChannelManage channelManage = ChannelManage.instance();
 

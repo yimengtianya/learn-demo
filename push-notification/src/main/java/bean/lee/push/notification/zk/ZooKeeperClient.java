@@ -3,18 +3,18 @@ package bean.lee.push.notification.zk;
 import java.io.IOException;
 import java.util.concurrent.CountDownLatch;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.Watcher;
 import org.apache.zookeeper.Watcher.Event.KeeperState;
 import org.apache.zookeeper.ZooKeeper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.conf.Config;
 
 public class ZooKeeperClient {
 
-	private final static Logger LOGGER = LogManager.getLogger(ZooKeeperClient.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(ZooKeeperClient.class);
 
 	private ZooKeeper zooKeeper = null;
 

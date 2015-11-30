@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration status="OFF">
+
+	<!-- 控制台输出 -->
 	<appenders>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout
@@ -7,6 +9,11 @@
 		</Console>
 	</appenders>
 	<loggers>
+		<!-- 第三方 -->
+		<logger name="io.netty" level="info" />
+		<logger name="org.apache" level="info" />
+
+		<!-- Root Logger -->
 		<root level="debug">
 			<appender-ref ref="Console" />
 		</root>
