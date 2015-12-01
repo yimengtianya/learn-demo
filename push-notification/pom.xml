@@ -13,6 +13,7 @@
 		<zookeeper.version>3.4.6</zookeeper.version>
 		<jackson.version>2.4.6</jackson.version>
 		<junit.version>4.12</junit.version>
+		<jedis.version>2.7.3</jedis.version>
 	</properties>
 
 
@@ -78,6 +79,13 @@
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-annotations</artifactId>
 			<version>${jackson.version}</version>
+		</dependency>
+		
+		<!-- jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+			<version>${jedis.version}</version>
 		</dependency>
 
 		<!-- test -->
