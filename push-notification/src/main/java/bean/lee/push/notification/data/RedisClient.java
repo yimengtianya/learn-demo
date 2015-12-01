@@ -3,6 +3,8 @@ package bean.lee.push.notification.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.lee.push.notification.conf.Config;
+import bean.lee.push.notification.route.ChannelManage;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
@@ -16,6 +18,21 @@ public class RedisClient {
 	private JedisPool jedisPool;// 非切片连接池
 	private ShardedJedis shardedJedis;// 切片额客户端连接
 	private ShardedJedisPool shardedJedisPool;// 切片连接池
+
+	private static RedisClient redisClient = null;
+
+	public static RedisClient instance() {
+		if (redisClient == null)
+			redisClient = new RedisClient();
+		return redisClient;
+	}
+
+	private RedisClient() {
+		initialPool();
+		initialShardedPool();
+		shardedJedis = shardedJedisPool.getResource();
+		jedis = jedisPool.getResource();
+	}
 
 	public Jedis getJedis() {
 		return jedis;
@@ -33,26 +50,18 @@ public class RedisClient {
 		return shardedJedisPool;
 	}
 
-	public RedisClient() {
-		initialPool();
-		initialShardedPool();
-		shardedJedis = shardedJedisPool.getResource();
-		jedis = jedisPool.getResource();
-
-	}
-
 	/**
 	 * 初始化非切片池
 	 */
 	private void initialPool() {
 		// 池基本配置
 		JedisPoolConfig config = new JedisPoolConfig();
-		config.setMaxTotal(20);
-		config.setMaxIdle(5);
-		config.setMaxWaitMillis(1000l);
-		config.setTestOnBorrow(false);
+		config.setMaxTotal(Config.redisPoolMaxTotal);
+		config.setMaxIdle(Config.redisPoolMaxIdle);
+		config.setMaxWaitMillis(Config.redisPoolMaxWaitMillis);
+		config.setTestOnBorrow(Config.redisPoolTestOnBorrow);
 
-		jedisPool = new JedisPool(config, "192.168.142.129", 6379);
+		jedisPool = new JedisPool(config, Config.redisIp, Config.redisPort);
 	}
 
 	/**
