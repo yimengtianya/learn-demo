@@ -13,7 +13,7 @@ import org.eclipse.paho.client.mqttv3.MqttException;
  */
 public class Subscriber extends AbstractMqttClient{
 
-    public static final String BROKER_URL = "tcp://127.0.0.1:8080";
+    public static final String BROKER_URL = "tcp://127.0.0.1:1883";
     public static final String TOPIC = "mqtt";
     private static final String CLIENT_ID = "c1";
 

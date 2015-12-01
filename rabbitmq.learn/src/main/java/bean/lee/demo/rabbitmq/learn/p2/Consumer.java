@@ -8,8 +8,6 @@ import bean.lee.demo.rabbitmq.learn.EndPoint;
 public class Consumer extends EndPoint implements Runnable {
 	
 	public int number;
-	
-	
 
 	public Consumer(int number) {
 		this.number = number;
