@@ -2,7 +2,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>bean.lee</groupId>
-	<artifactId>push-notification-web</artifactId>
+	<artifactId>mqtt-message-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- 引入parent的好处是避免考虑第三方包版本问题 -->
