@@ -15,7 +15,7 @@ import bean.lee.push.notification.conf.Config;
  * @author Dube
  * @date 2015年12月3日 下午2:18:18
  */
-public class RabbitMQClinet implements JmsClient {
+public class RabbitMQClient implements JmsClient {
 
 	private final static String TOPIC = "message";
 

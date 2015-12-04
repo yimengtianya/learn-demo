@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import bean.lee.push.notification.conf.Config;
-import bean.lee.push.notification.jms.RabbitMQClinet;
+import bean.lee.push.notification.jms.RabbitMQClient;
 import bean.lee.push.notification.server.MqttServer;
 
 /**
@@ -18,7 +18,7 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		LOGGER.info(String.format("Server start at port %d", Config.mqttPort));
-		new RabbitMQClinet().init();
+		new RabbitMQClient().init();
 		new MqttServer(Config.mqttPort).run();
 	}
 

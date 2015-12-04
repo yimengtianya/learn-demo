@@ -13,10 +13,6 @@ import org.eclipse.paho.client.mqttv3.MqttException;
  */
 public class Subscriber extends AbstractMqttClient{
 
-    public static final String BROKER_URL = "tcp://127.0.0.1:1883";
-    public static final String TOPIC = "mqtt";
-    private static final String CLIENT_ID = "c1";
-
     private static final Logger logger = Logger.getLogger(Subscriber.class.getName());
 
     public Subscriber(String brokerUrl, String clientId, String topic) throws MqttException {
@@ -31,17 +27,6 @@ public class Subscriber extends AbstractMqttClient{
         }
     }
 
-    public static void main(String[] args) throws MqttException {
-        Subscriber subscriber = new Subscriber(BROKER_URL, CLIENT_ID, TOPIC);
-        Scanner scanner = new Scanner(System.in);
-        while (scanner.hasNextLine()){
-            String line = scanner.nextLine();
-            if(line.trim().toLowerCase().equals("quit")){
-                break;
-            }
-        }
-        subscriber.disconnect();
-        logger.info("Exit!");
-    }
+  
 
 }
