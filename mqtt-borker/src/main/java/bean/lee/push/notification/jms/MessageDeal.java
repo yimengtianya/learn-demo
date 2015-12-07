@@ -11,8 +11,8 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
+import bean.lee.push.notification.message.MessageManager;
 import bean.lee.push.notification.message.entity.Message;
-import bean.lee.push.notification.message.publish.PublishManager;
 
 /**
  * 处理从mq上获取的消息，可实现异步
@@ -33,7 +33,7 @@ public class MessageDeal extends DefaultConsumer {
 			throws IOException {
 		String jsonMessage = new String(body, "UTF-8");
 		LOGGER.debug(jsonMessage);
-		Message message = new ObjectMapper().readValue(jsonMessage, Message.class);
-		PublishManager.publish(message.getTopic(), message.getContent());
+		Message message = new ObjectMapper().readValue(jsonMessage, Message.class);	
+		MessageManager.publish(message);
 	}
 }

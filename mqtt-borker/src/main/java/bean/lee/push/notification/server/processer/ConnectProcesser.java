@@ -42,6 +42,7 @@ public class ConnectProcesser extends Processer {
 		if (connectVariableHeader.version() != 3) {
 			return REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
 		}
+		//ctx.channel().id().toString()之后改为客户端ID,clientId
 		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
 		// TODO 身份验证
 		return ACCEPTED;

@@ -6,6 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 import org.slf4j.LoggerFactory;
 import org.slf4j.Logger;
 
+import bean.lee.push.notification.route.client.ClientManage;
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.Channel;
 
@@ -38,6 +39,7 @@ public class ChannelManage {
 		// 不同步，最终一致
 		map.put(clientId, channel);
 		TimeCheck.instance().add(clientId);
+		ClientManage.instance().add(clientId);
 		LOGGER.debug(String.format("Add %s , Channel map size is %d", clientId, map.size()));
 	}
 
@@ -62,6 +64,7 @@ public class ChannelManage {
 			map.remove(clientId);
 			TimeCheck.instance().remove(clientId);
 			TopicManager.instance().removeChannel(clientId);
+			ClientManage.instance().remove(clientId);
 		}
 		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}

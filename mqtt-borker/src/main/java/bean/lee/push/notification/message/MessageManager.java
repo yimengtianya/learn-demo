@@ -1,10 +1,11 @@
-package bean.lee.push.notification.message.publish;
+package bean.lee.push.notification.message;
 
 import java.util.Set;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bean.lee.push.notification.message.entity.Message;
 import bean.lee.push.notification.route.ChannelManage;
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.buffer.ByteBuf;
@@ -24,13 +25,17 @@ import io.netty.util.CharsetUtil;
  * @author Dube
  * @date 2015年11月23日 上午10:30:00
  */
-public class PublishManager {
+public class MessageManager {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(PublishManager.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(MessageManager.class);
 
 	private static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
 
-	public static void publish(String topic, String message) {
+	public static void publish(Message message) {
+		
+		String topic = message.getTopic();
+		String content = message.getContent();
+		
 		LOGGER.debug(String.format("Publish message at topic %s", topic));
 		Set<String> channelIds = TopicManager.instance().channelSubscirbedTopic(topic);
 		Channel channel = null;
@@ -38,9 +43,9 @@ public class PublishManager {
 			for (String channelId : channelIds) {
 				channel = ChannelManage.instance().get(channelId);
 				if (channel != null && channel.isOpen()) {
-					channel.writeAndFlush(buildMessage(topic, message));
-					LOGGER.debug(String.format("topic: %s  channel: %s  message: %s", topic, channel.id().toString(),
-							message));
+					channel.writeAndFlush(buildMessage(topic, content));
+					LOGGER.debug(String.format("topic: %s  channel: %s  content: %s", topic, channel.id().toString(),
+							content));
 				}
 			}
 		}
