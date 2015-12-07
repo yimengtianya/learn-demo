@@ -22,6 +22,7 @@ public class StringTypeDemo {
 	public void test() {
 		jedis.set("name", "hehe");
 		System.out.println(jedis.get("name"));
+		
 	}
 
 }
