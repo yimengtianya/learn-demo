@@ -1,19 +1,21 @@
 package bean.lee.push.notification.topic;
 
-import java.util.HashSet;
-import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
+
+import bean.lee.push.notification.data.RedisClient;
 
 /**
- * 维护topic和channel关系
+ * 维护topic和channel关系(目前只维护在线的客户端)
  * 
  * @author Dube
  * @date 2015年11月19日 下午5:54:06
  */
 public class TopicManager {
 
-	private Map<String, Set<String>> topicChannelMap = new ConcurrentHashMap<>();
+	/**
+	 * 与消息主题构成持久化时主题集合的key
+	 */
+	public static final String TOPIC_HEADER = "TOPIC_";
 
 	private static TopicManager topicManager = null;
 
@@ -25,30 +27,24 @@ public class TopicManager {
 	}
 
 	public void register(String topic, String channelId) {
-		if (exist(topic)) {
-			topicChannelMap.get(topic).add(channelId);
-		} else {
-			Set<String> channelIds = new HashSet<>();
-			channelIds.add(channelId);
-			topicChannelMap.put(topic, channelIds);
-		}
+		RedisClient.instance().getJedis().sadd(TOPIC_HEADER + topic, channelId);
 	}
 
 	public boolean exist(String topic) {
-		return topicChannelMap.containsKey(topic);
+		return RedisClient.instance().getJedis().exists(TOPIC_HEADER + topic);
 	}
 
 	public Set<String> channelSubscirbedTopic(String topic) {
-		return topicChannelMap.get(topic);
+		return RedisClient.instance().getJedis().smembers(TOPIC_HEADER + topic);
 	}
 
 	public Set<String> topics() {
-		return topicChannelMap.keySet();
+		return RedisClient.instance().getJedis().keys(TOPIC_HEADER + "*");
 	}
 
 	public void removeChannel(String channelId) {
-		for (Map.Entry<String, Set<String>> entry : topicChannelMap.entrySet()) {
-			entry.getValue().remove(channelId);
+		for (String topic : topics()) {
+			RedisClient.instance().getJedis().srem(topic, channelId);
 		}
 	}
 

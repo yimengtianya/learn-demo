@@ -28,7 +28,7 @@ import io.netty.util.CharsetUtil;
  */
 public class MessagePublishTask implements Runnable {
 
-	private final static Logger LOGGER = LoggerFactory.getLogger(MessageManager.class);
+	private final static Logger LOGGER = LoggerFactory.getLogger(MessagePublishTask.class);
 
 	private static final ByteBufAllocator ALLOCATOR = new UnpooledByteBufAllocator(false);
 

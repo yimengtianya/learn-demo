@@ -34,6 +34,6 @@ public class MessageDeal extends DefaultConsumer {
 		String jsonMessage = new String(body, "UTF-8");
 		LOGGER.debug(jsonMessage);
 		Message message = new ObjectMapper().readValue(jsonMessage, Message.class);	
-		MessageManager.publish(message);
+		MessageManager.instance().publish(message);
 	}
 }
