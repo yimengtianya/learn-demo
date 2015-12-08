@@ -1,57 +1,72 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>Push Notification</title>
-		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
-		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/icon.css">
-		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/color.css">
-		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/demo/demo.css">
-		<script type="text/javascript" src="http://code.jquery.com/jquery-1.6.min.js"></script>
-		<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
-	</head>
-	<body>
-		<div align="center">
-		
+<head>
+<meta charset="UTF-8">
+<title>Push Notification</title>
+<link rel="stylesheet" type="text/css"
+	href="http://www.jeasyui.com/easyui/themes/default/easyui.css">
+<link rel="stylesheet" type="text/css"
+	href="http://www.jeasyui.com/easyui/themes/icon.css">
+<link rel="stylesheet" type="text/css"
+	href="http://www.jeasyui.com/easyui/themes/color.css">
+<link rel="stylesheet" type="text/css"
+	href="http://www.jeasyui.com/easyui/demo/demo.css">
+<script type="text/javascript"
+	src="http://code.jquery.com/jquery-1.6.min.js"></script>
+<script type="text/javascript"
+	src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+</head>
+<body>
+	<div align="center">
 		<h2>消息推送平台</h2>
-		
 		<form id="fm" method="post" novalidate>
 			<div class="fitem">
-				<label>主题:</label>
-				<input id="topic" name="topic" class="easyui-textbox" required="true">
+				<label>ID: </label> <input id="id" name="id" class="easyui-textbox"
+					required="true">
 			</div>
 			<div class="fitem">
-				<label>消息:</label>
-				<input  id="message" name="message" class="easyui-textbox" required="true">
+				<label>主题:</label> <input id="topic" name="topic"
+					class="easyui-textbox" required="true">
+			</div>
+			<div class="fitem">
+				<label>消息:</label> <input id="message" name="message"
+					class="easyui-textbox" required="true">
+			</div>
+			<div class="fitem">
+				<label>存活:</label> <input id=lifetime name="lifetime"
+					class="easyui-textbox" required="true">
 			</div>
 		</form>
-		<br/>
-		
+		<br />
+
 		<div id="dlg-buttons">
-		<a href="javascript:void(0)" class="easyui-linkbutton c6" iconCls="icon-ok" onclick="pushMessage()" style="width:90px">发送</a>
+			<a href="javascript:void(0)" class="easyui-linkbutton c6"
+				iconCls="icon-ok" onclick="pushMessage()" style="width: 90px">发送</a>
+		</div>
+
 	</div>
 
-
 	<script type="text/javascript">
+		function pushMessage() {
 
-		function pushMessage(){
+			var id0 = $('#id').val();
+			var topic0 = $('#topic').val();
+			var message0 = $('#message').val();
+			var lifetime0 = $('#lifetime').val();
+			var data = "{\"topic\":\"" + topic0 + "\",\"content\":\""
+					+ message0 + "\",\"id\":\""
+					+ id0 + "\",\"lifetime\":\""
+					+ lifetime0 + "\"}";
 
+			$.post('/rest/message/push', data, function(result) {
+				$.messager.show({ // show error message
+					title : '成功',
+					msg : result.message
+				});
 
-
-			var topic0=$('#topic').val();
-			var message0=$('#message').val();
-			var data = "{\"topic\":\""+topic0+"\",\"content\":\""+message0+"\"}";
-
-			$.post('/rest/message/push',data,function(result){
-                       $.messager.show({    // show error message
-                            title: '成功',
-                            msg: result.message
-                        });
-                    
-            },'json');		
+			}, 'json');
 		}
 	</script>
-
-	</body>
+</body>
 </html>
 
