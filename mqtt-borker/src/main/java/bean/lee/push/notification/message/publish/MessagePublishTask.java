@@ -45,21 +45,22 @@ public class MessagePublishTask implements Runnable {
 	public void run() {
 		String topic = message.getTopic();
 		String content = message.getContent();
+		int messageId = message.getId();
 		Channel channel = null;
 		if (clientIds != null && clientIds.size() > 0) {
 			for (String channelId : clientIds) {
 				channel = ChannelManage.instance().get(channelId);
 				if (channel != null && channel.isOpen()) {
-					channel.writeAndFlush(buildMessage(topic, content));
+					channel.writeAndFlush(buildMessage(topic, content, messageId));
 				}
 			}
 		}
 	}
 
-	private static MqttPublishMessage buildMessage(String topic, String message) {
+	private static MqttPublishMessage buildMessage(String topic, String message, int messageId) {
 		MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.PUBLISH, false, MqttQoS.AT_LEAST_ONCE,
 				true, 0);
-		MqttPublishVariableHeader mqttPublishVariableHeader = new MqttPublishVariableHeader(topic, 1);
+		MqttPublishVariableHeader mqttPublishVariableHeader = new MqttPublishVariableHeader(topic, messageId);
 		ByteBuf payload = ALLOCATOR.buffer();
 		payload.writeBytes(message.getBytes(CharsetUtil.UTF_8));
 		MqttPublishMessage publishMessage = new MqttPublishMessage(mqttFixedHeader, mqttPublishVariableHeader, payload);

@@ -39,7 +39,7 @@ public class ChannelManage {
 		// 不同步，最终一致
 		map.put(clientId, channel);
 		TimeCheck.instance().add(clientId);
-		ClientManage.instance().add(clientId);
+		ClientManage.instance().add(channel.id().toString(),clientId);
 		LOGGER.debug(String.format("Add %s , Channel map size is %d", clientId, map.size()));
 	}
 

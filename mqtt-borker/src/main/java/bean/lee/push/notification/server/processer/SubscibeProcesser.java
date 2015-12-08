@@ -51,7 +51,8 @@ public class SubscibeProcesser extends Processer {
 		// 返回消息构建
 		MqttFixedHeader mqttFixedHeader = new MqttFixedHeader(MqttMessageType.SUBACK, false, MqttQoS.AT_MOST_ONCE,
 				false, 0);
-		MqttMessageIdVariableHeader mqttMessageIdVariableHeader = MqttMessageIdVariableHeader.from(1);
+		MqttMessageIdVariableHeader mqttMessageIdVariableHeader = MqttMessageIdVariableHeader
+				.from(message.variableHeader().messageId());
 		MqttSubAckPayload mqttSubAckPayload = new MqttSubAckPayload(topicQos);
 		MqttSubAckMessage subAckMessage = new MqttSubAckMessage(mqttFixedHeader, mqttMessageIdVariableHeader,
 				mqttSubAckPayload);

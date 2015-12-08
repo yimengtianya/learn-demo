@@ -2,6 +2,7 @@ package bean.lee.push.notification.topic;
 
 import java.util.Set;
 
+import bean.lee.push.notification.conf.Config;
 import bean.lee.push.notification.data.RedisClient;
 
 /**
@@ -15,7 +16,7 @@ public class TopicManager {
 	/**
 	 * 与消息主题构成持久化时主题集合的key
 	 */
-	public static final String TOPIC_HEADER = "TOPIC_";
+	public static final String TOPIC_HEADER = Config.serverName+"_TOPIC_";
 
 	private static TopicManager topicManager = null;
 

@@ -3,15 +3,20 @@ package bean.lee.push.notification.message.entity;
 public class Message {
 
 	/**
+	 * id
+	 */
+	private int id;
+
+	/**
 	 * 主题
 	 */
 	private String topic;
-	
+
 	/**
 	 * 内容
 	 */
 	private String content;
-	
+
 	/**
 	 * 存活时间，单位：秒
 	 */
@@ -40,7 +45,12 @@ public class Message {
 	public void setLifetime(Long lifetime) {
 		this.lifetime = lifetime;
 	}
-	
-	
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }
