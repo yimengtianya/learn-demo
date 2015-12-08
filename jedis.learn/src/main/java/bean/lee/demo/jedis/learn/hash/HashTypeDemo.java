@@ -21,6 +21,7 @@ public class HashTypeDemo {
 		System.out.println(jedis.hget("message1", "clinet1"));
 		System.out.println(jedis.hexists("message1", "clinet1"));
 		System.out.println(jedis.exists("message1"));
+		System.out.println(jedis.hdel("message1", "clinet1"));
 		System.out.println(jedis.hgetAll("message1"));
 	}
 
