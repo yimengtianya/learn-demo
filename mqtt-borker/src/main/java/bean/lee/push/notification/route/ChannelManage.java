@@ -39,7 +39,7 @@ public class ChannelManage {
 		// 不同步，最终一致
 		map.put(clientId, channel);
 		TimeCheck.instance().add(clientId);
-		ClientManage.instance().add(channel.id().toString(),clientId);
+		ClientManage.instance().add(channel.id().toString(), clientId);
 		LOGGER.debug(String.format("Add %s , Channel map size is %d", clientId, map.size()));
 	}
 
@@ -48,11 +48,7 @@ public class ChannelManage {
 	}
 
 	public void remove(Channel channel) {
-		for (Map.Entry<String, Channel> entry : map.entrySet()) {
-			if (entry.getValue() == channel) {
-				remove(entry.getKey());
-			}
-		}
+		remove(ClientManage.instance().getClientId(channel.id().toString()));
 	}
 
 	public void remove(String clientId) {
@@ -63,8 +59,8 @@ public class ChannelManage {
 		synchronized (this) {
 			map.remove(clientId);
 			TimeCheck.instance().remove(clientId);
-			TopicManager.instance().removeChannel(clientId);
-			ClientManage.instance().remove(clientId);
+			TopicManager.instance().removeClient(clientId);
+			ClientManage.instance().removeByClinetId(clientId);
 		}
 		LOGGER.debug(String.format("Remove %s , Channel map size is %d", clientId, map.size()));
 	}
@@ -78,7 +74,7 @@ public class ChannelManage {
 	 * @date 2015年11月17日 下午6:02:42
 	 */
 	public void refresh(Channel channel) {
-		TimeCheck.instance().refreshTime(channel.id().toString());
+		TimeCheck.instance().refreshTime(ClientManage.instance().getClientId(channel.id().toString()));
 	}
 
 	/**
@@ -93,7 +89,7 @@ public class ChannelManage {
 	public boolean exist(Channel channel) {
 		if (channel == null)
 			return false;
-		return map.containsKey(channel.id().toString());
+		return map.containsKey(ClientManage.instance().getClientId(channel.id().toString()));
 	}
 
 }

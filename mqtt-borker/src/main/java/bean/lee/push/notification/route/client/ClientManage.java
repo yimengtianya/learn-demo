@@ -47,6 +47,10 @@ public class ClientManage {
 	public String getClientId(String channelId) {
 		return RedisClient.instance().getJedis().hget(CLIENT_SET_KEY_CH2CL, channelId);
 	}
+	
+	public String getChannelId(String clientId){
+		return RedisClient.instance().getJedis().hget(CLIENT_SET_KEY_CL2CH, clientId);
+	}
 
 	public void remove(String channelId) {
 		String clientId = getClientId(channelId);
@@ -57,7 +61,7 @@ public class ClientManage {
 	}
 
 	public void removeByClinetId(String clientId) {
-		String channelId = getClientId(clientId);
+		String channelId = getChannelId(clientId);
 		synchronized (this) {
 			RedisClient.instance().getJedis().hdel(CLIENT_SET_KEY_CH2CL, channelId);
 			RedisClient.instance().getJedis().hdel(CLIENT_SET_KEY_CL2CH, clientId);

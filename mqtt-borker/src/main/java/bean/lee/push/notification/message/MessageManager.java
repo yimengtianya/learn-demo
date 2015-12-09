@@ -48,7 +48,9 @@ public class MessageManager {
 	 * @date 2015年12月8日 下午4:37:50
 	 */
 	public void publish(Message message) {
-		Set<String> clientIds = TopicManager.instance().channelSubscirbedTopic(message.getTopic());
+		// 获取订阅但未收到此消息的在线客户端ID
+		Set<String> clientIds = RedisClient.instance().getJedis().sdiff(TopicManager.TOPIC_HEADER + message.getTopic(),
+				MESSAGE_ACK_HEADER + String.valueOf(message.getId()));
 		MessagePublishTask messagePublishTask = new MessagePublishTask(message, clientIds);
 		threadPool.execute(messagePublishTask);
 	}

@@ -1,5 +1,6 @@
 package bean.lee.push.notification.topic;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import bean.lee.push.notification.conf.Config;
@@ -16,7 +17,7 @@ public class TopicManager {
 	/**
 	 * 与消息主题构成持久化时主题集合的key
 	 */
-	public static final String TOPIC_HEADER = Config.serverName+"_TOPIC_";
+	public static final String TOPIC_HEADER = Config.serverName + "_TOPIC_";
 
 	private static TopicManager topicManager = null;
 
@@ -27,25 +28,30 @@ public class TopicManager {
 		return topicManager;
 	}
 
-	public void register(String topic, String channelId) {
-		RedisClient.instance().getJedis().sadd(TOPIC_HEADER + topic, channelId);
+	public void register(String topic, String clientId) {
+		RedisClient.instance().getJedis().sadd(TOPIC_HEADER + topic, clientId);
 	}
 
 	public boolean exist(String topic) {
 		return RedisClient.instance().getJedis().exists(TOPIC_HEADER + topic);
 	}
 
-	public Set<String> channelSubscirbedTopic(String topic) {
+	public Set<String> clientIdsSubscirbedTopic(String topic) {
 		return RedisClient.instance().getJedis().smembers(TOPIC_HEADER + topic);
 	}
 
 	public Set<String> topics() {
-		return RedisClient.instance().getJedis().keys(TOPIC_HEADER + "*");
+		Set<String> keys = RedisClient.instance().getJedis().keys(TOPIC_HEADER + "*");
+		Set<String> topics = new HashSet<>();
+		for (String key : keys) {
+			topics.add(key.substring(TOPIC_HEADER.length()));
+		}
+		return topics;
 	}
 
-	public void removeChannel(String channelId) {
+	public void removeClient(String clientId) {
 		for (String topic : topics()) {
-			RedisClient.instance().getJedis().srem(topic, channelId);
+			RedisClient.instance().getJedis().srem(TOPIC_HEADER + topic, clientId);
 		}
 	}
 

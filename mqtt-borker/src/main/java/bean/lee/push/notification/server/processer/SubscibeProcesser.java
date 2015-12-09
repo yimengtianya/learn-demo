@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import bean.lee.push.notification.route.client.ClientManage;
 import bean.lee.push.notification.topic.TopicManager;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttFixedHeader;
@@ -43,7 +44,7 @@ public class SubscibeProcesser extends Processer {
 		String channelId = ctx.channel().id().toString();
 		for (int i = 0; i < topicSubsSize; i++) {
 			MqttTopicSubscription topicSub = topicSubs.get(i);
-			topicManager.register(topicSub.topicName(), channelId);
+			topicManager.register(topicSub.topicName(), ClientManage.instance().getClientId(channelId));
 			topicQos[i] = topicSub.qualityOfService().value();
 			LOGGER.debug(String.format("Channel [%s] subscribe at tipic [%s].", channelId, topicSub.topicName()));
 		}

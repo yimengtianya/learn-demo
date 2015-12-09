@@ -8,6 +8,7 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.mqtt.MqttConnAckMessage;
 import io.netty.handler.codec.mqtt.MqttConnAckVariableHeader;
 import io.netty.handler.codec.mqtt.MqttConnectMessage;
+import io.netty.handler.codec.mqtt.MqttConnectPayload;
 import io.netty.handler.codec.mqtt.MqttConnectReturnCode;
 import io.netty.handler.codec.mqtt.MqttConnectVariableHeader;
 import io.netty.handler.codec.mqtt.MqttFixedHeader;
@@ -30,21 +31,53 @@ public class ConnectProcesser extends Processer {
 	 */
 	private static MqttConnAckMessage ACCEPTED = createConnAckMessage(MqttConnectReturnCode.CONNECTION_ACCEPTED);
 
+	/**
+	 * 协议版本错误
+	 */
 	private static MqttConnAckMessage REFUSED_UNACCEPTABLE_PROTOCOL_VERSION = createConnAckMessage(
 			MqttConnectReturnCode.CONNECTION_REFUSED_UNACCEPTABLE_PROTOCOL_VERSION);
+	
+	/**
+	 * clientId拒绝
+	 */
+	private static MqttConnAckMessage CONNECTION_REFUSED_IDENTIFIER_REJECTED = createConnAckMessage(
+			MqttConnectReturnCode.CONNECTION_REFUSED_IDENTIFIER_REJECTED);
+	
+	/**
+	 * 帐号或密码错误
+	 */
+	private static MqttConnAckMessage CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD = createConnAckMessage(
+			MqttConnectReturnCode.CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD);
 
 	@Override
 	public MqttMessage proc(MqttMessage msg, ChannelHandlerContext ctx) {
-		MqttConnectMessage cm = (MqttConnectMessage) msg;
-		MqttConnectVariableHeader connectVariableHeader = cm.variableHeader();
+		MqttConnectMessage message = (MqttConnectMessage) msg;
+		MqttConnectVariableHeader connectVariableHeader = message.variableHeader();
+		MqttConnectPayload connectPayload = message.payload();
+
 		LOGGER.debug(String.format("Variable Header: %s", connectVariableHeader.toString()));
+
 		// 协议版本验证
 		if (connectVariableHeader.version() != 3) {
 			return REFUSED_UNACCEPTABLE_PROTOCOL_VERSION;
 		}
-		//ctx.channel().id().toString()之后改为客户端ID,clientId
-		ChannelManage.instance().add(ctx.channel().id().toString(), ctx.channel());
-		// TODO 身份验证
+
+		// 获取clientId
+		String clientId = connectPayload.clientIdentifier();
+		if (clientId == null || clientId.equals("")) {
+			return CONNECTION_REFUSED_IDENTIFIER_REJECTED;
+		}
+
+		// 帐号密码验证
+		if (connectVariableHeader.hasPassword() && connectVariableHeader.hasUserName()) {
+			if (!checkUser(connectPayload.userName(), connectPayload.password())) {
+				return CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
+			}
+		} else {
+			return CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
+		}
+
+		ChannelManage.instance().add(clientId, ctx.channel());
 		return ACCEPTED;
 	}
 
@@ -53,6 +86,20 @@ public class ConnectProcesser extends Processer {
 				false, 2);
 		MqttConnAckVariableHeader mqttConnAckVariableHeader = new MqttConnAckVariableHeader(code);
 		return new MqttConnAckMessage(mqttFixedHeader, mqttConnAckVariableHeader);
+	}
+
+	/**
+	 * 帐号密码验证
+	 * 
+	 * @param userName
+	 * @param password
+	 * @return
+	 * @author Dube
+	 * @date 2015年12月9日 上午10:34:53
+	 */
+	private boolean checkUser(String userName, String password) {
+		// TODO
+		return true;
 	}
 
 }
