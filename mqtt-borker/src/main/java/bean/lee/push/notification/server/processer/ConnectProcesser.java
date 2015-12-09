@@ -69,13 +69,13 @@ public class ConnectProcesser extends Processer {
 		}
 
 		// 帐号密码验证
-		if (connectVariableHeader.hasPassword() && connectVariableHeader.hasUserName()) {
+		/*if (connectVariableHeader.hasPassword() && connectVariableHeader.hasUserName()) {
 			if (!checkUser(connectPayload.userName(), connectPayload.password())) {
 				return CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
 			}
 		} else {
 			return CONNECTION_REFUSED_BAD_USER_NAME_OR_PASSWORD;
-		}
+		}*/
 
 		ChannelManage.instance().add(clientId, ctx.channel());
 		return ACCEPTED;
