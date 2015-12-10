@@ -29,7 +29,9 @@ public class RabbitMQClientInit {
 	 */
 	private void connection() {
 		factory = new ConnectionFactory();
-		factory.setHost("192.168.142.129");
+		factory.setHost("192.168.142.131");
+		//factory.setHost("172.17.0.1");
+		
 		factory.setPort(5672);
 		try {
 			connection = factory.newConnection();

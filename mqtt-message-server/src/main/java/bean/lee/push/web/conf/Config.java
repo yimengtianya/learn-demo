@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class Config {
 
-	public static String zkAddress = "";
+	public static String zkAddress = "127.0.0.1:2181";
 
 	static {
 		Properties prop = new Properties();

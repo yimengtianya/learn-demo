@@ -3,6 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>bean.lee</groupId>
 	<artifactId>mqtt-message-server</artifactId>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- 引入parent的好处是避免考虑第三方包版本问题 -->
@@ -38,7 +39,7 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-		
+
 		<!-- spring boot test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -46,13 +47,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- zookeeper client -->
-		<dependency>
-			<groupId>org.apache.zookeeper</groupId>
-			<artifactId>zookeeper</artifactId>
-			<version>3.4.6</version>
-		</dependency>
-		
 		<!-- RabbitMQ Client -->
 		<dependency>
 			<groupId>com.rabbitmq</groupId>
@@ -70,7 +64,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<mainClass>bean.lee.push.web.Application</mainClass>
-					<layout>ZIP</layout>
 				</configuration>
 				<executions>
 					<execution>
