@@ -27,6 +27,7 @@ public class Config {
 		Properties prop = new Properties();
 		InputStream stream = null;
 		try {
+			//stream = new FileInputStream("/usr/local/mqtt-server/mqtt-borker/conf/pn.properties");
 			stream = new FileInputStream("conf/pn.properties");
 			prop.load(stream);
 
