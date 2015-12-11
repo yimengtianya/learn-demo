@@ -3,6 +3,7 @@ package bean.lee.push.web.conf;
 import java.io.IOException;
 import java.util.concurrent.TimeoutException;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +13,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 @Configuration
 public class RabbitMQClientInit {
-	
+
 	public final static String TOPIC = "message";
 
 	private ConnectionFactory factory;
@@ -20,6 +21,12 @@ public class RabbitMQClientInit {
 	private Connection connection;
 
 	private Channel channel;
+
+	@Value("${mqtt.ticketer.rabbitmq.host.ip}")
+	private String hostIp;
+
+	@Value("${mqtt.ticketer.rabbitmq.host.port}")
+	private int hostPort;
 
 	/**
 	 * 连接
@@ -29,10 +36,8 @@ public class RabbitMQClientInit {
 	 */
 	private void connection() {
 		factory = new ConnectionFactory();
-		factory.setHost("192.168.142.131");
-		//factory.setHost("172.17.0.1");
-		
-		factory.setPort(5672);
+		factory.setHost(hostIp);
+		factory.setPort(hostPort);
 		try {
 			connection = factory.newConnection();
 		} catch (IOException e) {
@@ -78,6 +83,5 @@ public class RabbitMQClientInit {
 		}
 		return channel;
 	}
-
 
 }
