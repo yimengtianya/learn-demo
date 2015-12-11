@@ -23,12 +23,12 @@ public class Config {
 	public static String mqIp = "127.0.0.1";
 	public static int mqPort = 5672;
 
-	static {
+	public static void init(String config) {
 		Properties prop = new Properties();
 		InputStream stream = null;
 		try {
 			//stream = new FileInputStream("/usr/local/mqtt-server/mqtt-borker/conf/pn.properties");
-			stream = new FileInputStream("conf/pn.properties");
+			stream = new FileInputStream(config);
 			prop.load(stream);
 
 			serverName = prop.getProperty("server.name").trim();
