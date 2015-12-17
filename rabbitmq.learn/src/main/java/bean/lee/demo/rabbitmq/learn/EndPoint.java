@@ -30,7 +30,7 @@ public abstract class EndPoint {
 	 */
 	protected void connection() {
 		factory = new ConnectionFactory();
-		factory.setHost("192.168.142.129");
+		factory.setHost("172.16.10.194");
 		factory.setPort(5672);
 		try {
 			connection = factory.newConnection();
