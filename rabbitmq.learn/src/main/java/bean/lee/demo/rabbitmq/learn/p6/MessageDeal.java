@@ -26,7 +26,6 @@ public class MessageDeal extends DefaultConsumer {
 
 		ByteArrayInputStream is = new ByteArrayInputStream(body);
 		HessianInput hi = new HessianInput(is);
-
 		Message message = (Message) hi.readObject();
 
 		System.out.println(message.getMessageId() + "  " + message.getTopicOp() + "  " + message.getTopic().toString()
