@@ -1,0 +1,55 @@
+package bean.lee.demo.rabbitmq.learn.p7;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import bean.lee.demo.rabbitmq.learn.EndPoint;
+
+/**
+ * 向mq中产生数据
+ * 
+ * @author Dube
+ * @date 2015年10月15日 下午4:16:51
+ */
+public class Producer extends EndPoint implements Runnable {
+	/**
+	 * 队列名称
+	 */
+	private static final String QUEUE_NAME = "logs7";
+
+	public void run() {
+
+		// 连接
+		connection();
+
+		try {
+			Map<String, Object> args = new HashMap<String, Object>();
+			args.put("x-message-ttl", 1000);
+			channel.queueDeclare(QUEUE_NAME, false, false, false, args);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+
+		String message = "";
+		for (int i = 0; i < 10; i++) {
+			message = "message_" + i;
+			try {
+				try {
+					// 广播模式，如果不等待，发布消息过快，看不到测试效果，（接收线程启动，消息已经发完了）
+					Thread.sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				channel.basicPublish("", QUEUE_NAME, null, message.getBytes());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		close();
+
+	}
+
+}
