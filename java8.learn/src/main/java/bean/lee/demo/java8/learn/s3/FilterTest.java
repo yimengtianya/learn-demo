@@ -36,5 +36,20 @@ public class FilterTest {
 		}).findFirst().get();
 		System.out.println(artist2.getName());
 
+		// 值传递
+		int abc = 9;
+		Artist artist3 = artists.stream().filter((artist) -> {
+			if (artist.getMembers() == 6) {
+				artist.setMembers(abc);// abc在lambda里其实为final,不能修改
+				return true;
+			}
+			return false;
+		}).findFirst().get();
+		for (Artist artist : artists) {
+			System.out.println(artist.getMembers());
+		}
+		System.out.println("====");
+		System.out.println(artists.contains(artist3));
+
 	}
 }
