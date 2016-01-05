@@ -20,12 +20,12 @@ public class StreamApiTest {
 	@Test
 	public void testMap() {
 
+		// map用数据转换
 		List<String> list = Stream.of("a", "b", "c").map((string) -> {
 			return string.toUpperCase();
 		}).collect(Collectors.toList());
 		Assert.assertEquals(Arrays.asList("A", "B", "C"), list);
 
-		
 		List<String> list2 = Stream.of("a", "b", "c").map(string -> string.toUpperCase()).collect(Collectors.toList());
 		Assert.assertEquals(Arrays.asList("A", "B", "C"), list2);
 	}
