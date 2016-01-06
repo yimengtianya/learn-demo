@@ -59,4 +59,11 @@ public class StreamApiTest {
 
 	}
 
+	@Test
+	public void testReduce() {
+		int sum = Stream.of(1, 2, 3).reduce(0, (acc, element) -> acc + element);
+		Assert.assertEquals(6, sum);
+
+	}
+
 }
