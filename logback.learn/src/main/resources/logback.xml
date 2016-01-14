@@ -1,40 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <configuration>
+
 	<contextName>myAppName</contextName><!-- 区分不同应用程序的记录，默认为default -->
+
 	<appender name="file"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>/opt/debug.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>logs/xxx.%d{yyyy-MM-dd}.log.zip</fileNamePattern>
+
+
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<fileNamePattern>/opt/logs/tests.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>30</maxIndex>
 		</rollingPolicy>
+
+		<triggeringPolicy
+			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>500MB</maxFileSize>
+		</triggeringPolicy>
+
+
+
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} -
 				%msg%n</pattern>
 		</encoder>
+
 	</appender>
-	<appender name="event"
-		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/opt/info.log</file>
-		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-			<fileNamePattern>E:\\event.%d{yyyy-MM-dd}.log</fileNamePattern>
-			<maxHistory>30</maxHistory>
-		</rollingPolicy>
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%msg%n</pattern>
-		</encoder>
-	</appender>
-
-
-
-	<logger name="monitorLog" level="INFO" additivity="false">
-
-		<appender-ref ref="event" />
-
-	</logger>
 
 
 	<root level="DEBUG">
 		<appender-ref ref="file" />
 	</root>
+
 </configuration>

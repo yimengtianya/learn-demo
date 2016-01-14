@@ -20,9 +20,7 @@ public class Task implements Runnable {
 
 	public static void main(String[] args) throws InterruptedException {
 
-		TimeUnit.SECONDS.sleep(5);
-
-		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);// 固定大小的线程池
+		ThreadPoolExecutor executor = (ThreadPoolExecutor) Executors.newFixedThreadPool(8);
 		for (int i = 0; i < 10; i++) {
 			executor.execute(new Task());
 		}
