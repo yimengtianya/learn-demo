@@ -7,6 +7,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import bean.lee.demo.sbmr.SampleMybatisApplication;
+import bean.lee.demo.sbmr.domain.City;
 import bean.lee.demo.sbmr.mapper.CityMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,7 +19,15 @@ public class CityMapperTest {
 
 	@Test
 	public void testFind() {
-		System.out.println(this.cityMapper.findByState("CA"));
+		City city = cityMapper.findByState("CA");
+		cityMapper.findByState("CA");
+		city.setState("CB");
+		cityMapper.update(city);
+		
+		cityMapper.findByState("CA");
+		cityMapper.findByState("CB");
+		cityMapper.findByState("CA");
+		cityMapper.findByState("CB");
 	}
 
 }

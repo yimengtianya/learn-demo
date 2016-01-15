@@ -21,6 +21,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import bean.lee.demo.sbmr.domain.City;
 
@@ -31,12 +32,16 @@ import bean.lee.demo.sbmr.domain.City;
 @CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class)
 public interface CityMapper {
 
-	@Options(useCache = true, timeout = 2000)
+	@Options(useCache = true)
 	@Select("SELECT * FROM CITY WHERE state = #{state}")
 	public City findByState(@Param("state") String state);
 
 	@Options(flushCache = true)
-	@Insert("INSERT INTO CITY (NAME, STATE, COUNTRY) VALUES (#{NAME}, #{STATE}, #{COUNTRY});")
+	@Insert("INSERT INTO CITY (name, state, country) VALUES (#{name}, #{state}, #{country});")
 	public int add(City city);
+
+	@Options(flushCache = true)
+	@Update("UPDATE CITY SET name=#{name}, state=#{state}, country=#{country} WHERE id=#{id}")
+	public int update(City city);
 
 }
