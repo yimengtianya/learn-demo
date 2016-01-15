@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-
 	<modelVersion>4.0.0</modelVersion>
 
+
 	<groupId>bean.lee.demo</groupId>
-	<artifactId>springboot.learn</artifactId>
+	<artifactId>springboot-mybatis-redis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<!-- 引入parent的好处是避免考虑第三方包版本问题 -->
@@ -16,6 +15,8 @@
 	</parent>
 
 	<properties>
+		<mybatis.version>3.3.0</mybatis.version>
+		<mybatis.spring.version>1.2.3</mybatis.spring.version>
 		<java.version>1.7</java.version>
 	</properties>
 
@@ -27,56 +28,38 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jetty</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-jersey</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 
+		<!-- test -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- spring cloud zookeeper -->
-		<!-- <dependency> <groupId>org.springframework.cloud</groupId> <artifactId>spring-cloud-commons</artifactId> 
-			<version>1.0.1.RELEASE</version> </dependency> <dependency> <groupId>org.springframework.cloud</groupId> 
-			<artifactId>spring-cloud-zookeeper-discovery</artifactId> <version>1.0.0.M2</version> 
-			</dependency> -->
-
-		<!-- spring -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-jdbc</artifactId>
-		</dependency>
 
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
-			<version>3.3.0</version>
+			<version>${mybatis.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
-			<version>1.2.3</version>
+			<version>${mybatis.spring.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-jdbc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.caches</groupId>
+			<artifactId>mybatis-redis</artifactId>
+			<version>1.0.0-beta2</version>
 		</dependency>
 
-		<!-- dbcp -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-dbcp2</artifactId>
-		</dependency>
+
+
 		<!-- mysql driver -->
 		<dependency>
 			<groupId>mysql</groupId>
@@ -91,7 +74,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>bean.lee.demo.springboot.learn.Application</mainClass>
+					<mainClass>bean.lee.demo.sbmr.SampleMybatisApplication</mainClass>
 					<layout>ZIP</layout>
 				</configuration>
 				<executions>

@@ -12,12 +12,12 @@
 		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
 			<fileNamePattern>/opt/logs/tests.%i.log.zip</fileNamePattern>
 			<minIndex>1</minIndex>
-			<maxIndex>30</maxIndex>
+			<maxIndex>30000</maxIndex>
 		</rollingPolicy>
 
 		<triggeringPolicy
 			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<maxFileSize>500MB</maxFileSize>
+			<maxFileSize>30MB</maxFileSize>
 		</triggeringPolicy>
 
 
