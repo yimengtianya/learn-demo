@@ -22,6 +22,7 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.cache.decorators.LruCache;
 
 import bean.lee.demo.sbmr.domain.City;
 
@@ -29,7 +30,7 @@ import bean.lee.demo.sbmr.domain.City;
  * @author Dube
  * @date 2016年1月15日 下午5:49:24
  */
-@CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class)
+@CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class, eviction = LruCache.class, flushInterval = 1800000)
 public interface CityMapper {
 
 	@Options(useCache = true)

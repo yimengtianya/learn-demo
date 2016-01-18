@@ -1,5 +1,7 @@
 package bean.lee.demo.sbmr.test;
 
+import java.util.concurrent.TimeUnit;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,16 +20,21 @@ public class CityMapperTest {
 	private CityMapper cityMapper;
 
 	@Test
-	public void testFind() {
-		City city = cityMapper.findByState("CA");
-		cityMapper.findByState("CA");
-		city.setState("CB");
+	public void testFind() throws InterruptedException {
+		City city = cityMapper.findByState("CB");
+
+		//cityMapper.findByState("CA");
+		city.setState("CC");
 		cityMapper.update(city);
-		
+
 		cityMapper.findByState("CA");
 		cityMapper.findByState("CB");
 		cityMapper.findByState("CA");
 		cityMapper.findByState("CB");
+		cityMapper.findByState("CC");
+
+		TimeUnit.SECONDS.sleep(3);
+
 	}
 
 }
