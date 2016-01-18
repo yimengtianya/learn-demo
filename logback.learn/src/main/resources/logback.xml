@@ -2,36 +2,39 @@
 
 <configuration>
 
-	<contextName>myAppName</contextName><!-- 区分不同应用程序的记录，默认为default -->
+	<property name="USER_HOME" value="/opt/log" />
+	<property name="LOG_CHARSET" value="UTF-8" />
+	<property name="LOG_MSG"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %X{UUID} %-5p [%c-%L] - %m%n" />
+	<property name="LOG_DIR" value="${USER_HOME}/%d{yyyyMMdd}" />
 
-	<appender name="file"
+	<appender name="FILE-Roll"
 		class="ch.qos.logback.core.rolling.RollingFileAppender">
-		<file>/opt/debug.log</file>
+		<File>${USER_HOME}/${CHANNEL}.log</File>
+		<Append>true</Append>
+		<discriminator>
+			<Key>CHANNEL</Key>
+			<DefaultValue>other</DefaultValue>
+		</discriminator>
 
 
-		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
-			<fileNamePattern>/opt/logs/tests.%i.log.zip</fileNamePattern>
-			<minIndex>1</minIndex>
-			<maxIndex>30000</maxIndex>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${LOG_DIR}/${CHANNEL}%i.log</FileNamePattern>
+
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<maxFileSize>30MB</maxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
 		</rollingPolicy>
 
-		<triggeringPolicy
-			class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
-			<maxFileSize>30MB</maxFileSize>
-		</triggeringPolicy>
 
-
-
-		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-			<pattern>%-20(%d{HH:mm:ss.SSS} [%thread]) %-5level %logger{80} -
-				%msg%n</pattern>
+		<encoder>
+			<pattern>${LOG_MSG}</pattern>
 		</encoder>
-
 	</appender>
 
-
 	<root level="DEBUG">
-		<appender-ref ref="file" />
+		<appender-ref ref="FILE-Roll" />
 	</root>
 
 </configuration>
