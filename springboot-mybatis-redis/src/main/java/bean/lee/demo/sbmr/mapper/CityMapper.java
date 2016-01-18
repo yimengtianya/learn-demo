@@ -27,10 +27,12 @@ import org.apache.ibatis.cache.decorators.LruCache;
 import bean.lee.demo.sbmr.domain.City;
 
 /**
+ * 测试缓存
+ * 
  * @author Dube
  * @date 2016年1月15日 下午5:49:24
  */
-@CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class, eviction = LruCache.class, flushInterval = 1800000)
+@CacheNamespace(implementation = org.mybatis.caches.redis.RedisCache.class, eviction = LruCache.class, flushInterval/* 单位ms */ = 1800000)
 public interface CityMapper {
 
 	@Options(useCache = true)
