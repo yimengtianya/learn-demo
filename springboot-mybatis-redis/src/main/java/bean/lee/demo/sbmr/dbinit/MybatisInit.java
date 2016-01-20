@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@MapperScan(basePackages = "bean.lee.demo.sbmr.mapper", sqlSessionFactoryRef = "sessionFactory")
+@MapperScan(basePackages = "bean.lee.demo.sbmr.mapper")
 public class MybatisInit {
 
-	@Bean(name = "sessionFactory")
+	@Bean
 	@Autowired
 	public SqlSessionFactory sqlSessionFactory(DataSource datasource) throws Exception {
 
