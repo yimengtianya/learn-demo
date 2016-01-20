@@ -90,6 +90,13 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.plexus</groupId>
+						<artifactId>plexus-utils</artifactId>
+						<version>3.0.15</version>
+					</dependency>
+				</dependencies>
 				<configuration>
 					<mainClass>bean.lee.demo.springboot.learn.Application</mainClass>
 					<layout>ZIP</layout>
