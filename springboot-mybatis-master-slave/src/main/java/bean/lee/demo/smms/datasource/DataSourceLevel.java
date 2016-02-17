@@ -1,5 +1,5 @@
 package bean.lee.demo.smms.datasource;
 
-public enum DataSources {
+public enum DataSourceLevel {
 	MASTER, SLAVE;
 }
