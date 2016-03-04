@@ -19,9 +19,9 @@ public class FileChannelLearn {
 
 		while (bytesRead != -1) {
 
-			//System.out.println("Read " + bytesRead);
+			// System.out.println("Read " + bytesRead);
 
-			// 反转Buffer
+			// 将Buffer从写模式切换到读模式
 			buf.flip();
 
 			while (buf.hasRemaining()) {
