@@ -1,0 +1,10 @@
+id
+name
+phone
+email
+operation
+qqNum
+address
+type
+addtime
+developerId
